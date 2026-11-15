@@ -1,73 +1,64 @@
-# STEM aviation school directory map
+# STEM aviation school map
 
-React 18+ component for `/resources/schools-with-stem-aviation`. Real OpenStreetMap tiles, Leaflet, clustered school markers, hover/focus names, click/tap address popups, directions and website links, and a searchable synchronized directory. Responsive layout, visible map attribution, reduced-motion support, keyboard controls, and a directory fallback if tiles fail.
+Interactive React component with all 19 participating schools confirmed in the user's screenshot. Locations are included in `schools.json`: no live geocoding, API key, or address-lookup delay is required.
 
-## Important data status
+[Open preview](https://htmlpreview.github.io/?https://github.com/dam1rgt3/dgx-components/blob/main/components/stem-schools-map/preview.html)
 
-The supplied `schools.json` contains 19 published entries from https://stemaviation.org/resources/schools-with-stem-aviation/ accessed November 15, 2026. It is a STARTER dataset, not a claim that the newer page has only 19 schools. The supplied screenshot has additional northern California pins. The newer host was inaccessible to the development web reader. School coordinates are deliberately absent until geocoded and reviewed. Do not deploy this starter file as a completed map or remove existing schools from the Lovable page.
+If the third-party preview service fails, download `preview.html` and open it in your browser. The preview renders the actual React component, with its actual dataset and CSS. Internet access is required for the pinned CDN libraries and OpenStreetMap tiles.
 
 ## Lovable import prompt
 
-Copy the following into Lovable Build mode:
+> Import https://github.com/dam1rgt3/dgx-components/tree/main/components/stem-schools-map into `/resources/schools-with-stem-aviation`. Read the README, fetch SchoolsMap.jsx, schools-map-utils.js, schools-map.css and schools.json from raw.githubusercontent.com, and install leaflet@1.9.4 plus leaflet.markercluster@1.5.3. Replace the static map with `<SchoolsMap />`. All 19 schools and their coordinates are already included; do not run browser geocoding. Preserve the surrounding page, existing school listings, typography and airport component. Test hover/focus names, click/tap details, directory selection, clustering, search, keyboard navigation, and mobile layout. Build the app and show the preview. Read the SEEO address note before changing any school address.
 
-> Import the component from https://github.com/dam1rgt3/dgx-components/tree/main/components/stem-schools-map into our existing schools-with-stem-aviation page. Fetch its README and source through raw.githubusercontent.com. Install leaflet@1.9.4 and leaflet.markercluster@1.5.3. Preserve the existing page typography, headings and content; replace only the static map with SchoolsMap. First extract ALL existing schools and addresses from this page's source/data, including northern California locations; do not substitute the incomplete 19-entry starter list for our full list. Assign stable unique IDs. Reuse existing accurate coordinates where available; otherwise run the included geocode-schools.mjs on the complete dataset in the build environment. Review every unmatched address and verify each matched location against its school address. Never use city-center coordinates or omit unresolved schools. Feed the resulting static JSON into the component. Ensure hover/focus shows school names, clicking/tapping shows address and directions, nearby pins cluster, clicking a directory item reveals its marker, search works by school/city/ZIP, and mobile and keyboard interaction work. Run the app build and browser checks, confirm every school has a marker, and show me the preview. Do not change our airport-map component.
-
-## Files to import
-
-Raw URL prefix: `https://raw.githubusercontent.com/dam1rgt3/dgx-components/main/components/stem-schools-map/`
-
-- `SchoolsMap.jsx`
-- `schools-map-utils.js`
-- `schools-map.css`
-- Your complete school dataset (use `schools.json` only as a supplemental source)
-- `geocode-schools.mjs` for build-time address lookup
-
-Install dependencies into the existing app. Do not replace the app's package.json with this folder's package.json.
+Raw file prefix: `https://raw.githubusercontent.com/dam1rgt3/dgx-components/main/components/stem-schools-map/`
 
 ```sh
 npm install leaflet@1.9.4 leaflet.markercluster@1.5.3
-node geocode-schools.mjs schools.complete.json schools.geocoded.json
 ```
 
 ```jsx
 import SchoolsMap from './SchoolsMap.jsx';
-import schools from './schools.geocoded.json';
 
 export default function SchoolDirectory() {
-  return <SchoolsMap schools={schools} />;
+  return <SchoolsMap />;
 }
 ```
 
-Use a client-only import if integrating into an SSR framework; Leaflet requires the browser DOM. Lovable's React/Vite apps can import directly.
+Optionally supply `<SchoolsMap schools={yourSchools} />`. Do not replace the application's package.json with this demo's package.json. For SSR frameworks, load the component on the client only. React/Vite applications can import it directly.
 
-## Data contract
+## Features
 
-```json
-{
-  "id": "stable-unique-school-id",
-  "name": "School name",
-  "address": "Full street address, City, CA ZIP",
-  "city": "City",
-  "website": "https://school.example",
-  "lat": 0,
-  "lng": 0
-}
-```
+- Real pannable, zoomable OpenStreetMap with nearby markers grouped into clusters.
+- Hover or keyboard focus shows the school name; click/tap shows the address, telephone, website, and directions.
+- Search by school, city, or ZIP; selecting a result reveals its marker.
+- Responsive layout and reduced-motion support. Scroll-wheel zoom is disabled to avoid hijacking page scrolling; use the zoom controls or touch gestures.
+- Missing locations stay in the directory; no invented default coordinates.
+- Safe text rendering in map popups and validation of external website protocols.
 
-The zeros above illustrate numeric types only: replace them with actual school coordinates. Never use placeholders on the live map. Optional `geocodeAddress` can remove a floor/suite or normalize a street format while retaining the original display address. Each entry needs a unique ID; duplicate IDs are collapsed. Coordinates must be numbers, not strings. Missing coordinates remain visible in the directory with a pending label; they do not generate fabricated pins.
+## School data and coordinate sources
 
-## Geocoding and accuracy
+The 19 names, display addresses and phone numbers follow the screenshot supplied by the user. Their underlying published directory is https://stemaviation.org/resources/schools-with-stem-aviation/ . The earlier description of this list as incomplete was incorrect and has been removed.
 
-The script uses the keyless US Census onelineaddress service, sequentially, during preparation rather than on page visits. It caches same-address coordinates in its output file. Only a single match with matching street number, California state and ZIP is accepted; unmatched or ambiguous records remain in the output and cause exit code 2. Review these records, check the school's official address and supply a verified coordinate or corrected `geocodeAddress`, then rerun. Clear a cached coordinate if the source address is corrected. The service estimates street-address positions along road segments, so its output is not a verified building entrance. Visually check all positions before deployment.
+Each entry has a `coordinateSource` URL and `coordinateAccuracy` description. Coordinates are sourced campus/address positions, not surveyed building entrances. Sources include municipal/state records, OpenStreetMap-derived listings, school-linked maps, and public school/location directories. Directions use the supplied street address, not an assumed entrance coordinate.
 
-Reference: https://geocoding.geo.census.gov/geocoder/Geocoding_Services_API.html
+### Address discrepancy to review
 
-## Map hosting
+SEEO is plotted at the supplied **1444 E Holt Ave** address, using the City of Pomona ADA plan's published coordinate. The current California Department of Education listing instead gives **2211 North Orange Grove Ave**: https://sd.cde.ca.gov/schooldirectory/details?cdscode=19649070115170 . The displayed address has intentionally not been changed. Confirm with STEM before updating it.
 
-OpenStreetMap raster tiles require no API key. Keep visible attribution, browser caching and the referrer header. Do not bulk-download/prefetch tiles or use them for offline maps. The public service is best-effort; for substantial traffic choose a suitable hosted OSM tile provider and change the tile URL and attribution. See https://operations.osmfoundation.org/policies/tiles/ . If a CSP is present, allow images from https://tile.openstreetmap.org and the appropriate external map links. No student information is collected by this component.
+Foothills Christian High School uses a published approximate coordinate for the same 2321 Dryden Rd street address. It is suitable as an address-area pin; do not represent it as a surveyed entrance.
+
+## Updating the data
+
+Each entry requires a stable unique `id`, `name`, `address`, numeric `lat` and `lng`. Optional fields: `city`, `website`, `phone`, `coordinateSource`, `coordinateAccuracy`, and an internal `locationNote`. Internal provenance notes are not shown to visitors. Keep source notes with the data when editing.
+
+The optional `geocode-schools.mjs` script is retained for future additions. Run it only during preparation, not on page visits. Existing coordinates are preserved. Unresolved new addresses remain in the output and cause exit code 2; check those addresses before publishing. It uses US Census street-range estimates: https://geocoding.geo.census.gov/geocoder/Geocoding_Services_API.html . It is not required for the included dataset.
+
+## Tile service
+
+Keep OpenStreetMap attribution visible and retain normal caching/referrer behavior. Do not prefetch, bulk-download, or build offline tile caches from the public service. For substantial production traffic select a suitable hosted OSM provider and change the tile URL and attribution. Policy: https://operations.osmfoundation.org/policies/tiles/ .
 
 ## Validation
 
-`node --test schools-map.test.mjs` passes four tests covering coordinate validation, search/deduplication, unsafe website URLs, and rejection of ambiguous/mismatched geocoding. React/browser rendering, live tiles and live geocoding could not be exercised in the network-restricted development environment. The complete current-page school list also needs verification in Lovable before publishing.
+Run `node --test schools-map.test.mjs` for data/utility/geocoding validation and `node build-preview.mjs` to regenerate the preview from source. The 19 locations, unique IDs, California coordinate bounds, source URLs, search, URL safety and geocoding rejection paths are covered by tests. The React source and generated preview script were compiled with Babel to catch JSX syntax errors.
 
-Before release: run the production build; verify every dataset row maps to a unique marker; inspect all locations; test clustered pins, rapid school selection, hover/focus, Enter/Space, mobile taps, search/no-results, reduced motion, resize, and tile failure. The component supports these interactions; the consuming app must validate its final integration.
+A headless browser check was attempted but the local browser could not launch under the execution sandbox (access denied). Therefore live tile loading, appearance and interactive browser behavior still need confirmation in Lovable or the linked preview. No successful browser test is claimed.
