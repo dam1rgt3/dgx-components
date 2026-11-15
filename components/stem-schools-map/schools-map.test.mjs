@@ -2,6 +2,15 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {hasCoordinates,normalizeSchools,filterSchools,safeWebsite} from './schools-map-utils.js';
 import {acceptMatch} from './geocode-schools.mjs';
+import {readFile} from 'node:fs/promises';
+test('all 19 confirmed schools have distinct sourced California locations',async()=>{
+  const schools=JSON.parse(await readFile(new URL('./schools.json',import.meta.url),'utf8'));
+  assert.equal(schools.length,19);
+  assert.equal(new Set(schools.map(s=>s.id)).size,19);
+  assert.equal(new Set(schools.map(s=>`${s.lat},${s.lng}`)).size,19);
+  for(const s of schools){assert.ok(hasCoordinates(s),s.name);assert.ok(s.lat>32&&s.lat<42&&s.lng>-125&&s.lng<-114,s.name);assert.ok(safeWebsite(s.coordinateSource),s.name);assert.ok(s.phone,s.name);}
+  assert.match(schools.find(s=>s.id==='school-of-extended-educational-options').address,/1444 E Holt/);
+});
 test('missing and invalid coordinates never produce a marker',()=>{
   for(const s of [{},{lat:null,lng:null},{lat:'33',lng:-117},{lat:NaN,lng:0},{lat:91,lng:0}])assert.equal(hasCoordinates(s),false);
   assert.equal(hasCoordinates({lat:33,lng:-117}),true);
