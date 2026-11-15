@@ -5,7 +5,12 @@
     "address": "351 Maple Ln, Big Bear Lake, CA 92315",
     "city": "Big Bear Lake",
     "website": "https://bbhs.bearvalleyusd.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 34.25385,
+    "lng": -116.82549,
+    "phone": "+1 909-585-6892",
+    "coordinateSource": "https://mapcarta.com/23001998",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
   },
   {
     "id": "stem3-academy",
@@ -13,7 +18,12 @@
     "address": "6455 Coldwater Canyon Ave, Valley Glen, CA 91606",
     "city": "Valley Glen",
     "website": "https://www.stem3academy.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 34.188287,
+    "lng": -118.414051,
+    "phone": "+1 818-623-6386",
+    "coordinateSource": "https://sanfernando.kidsoutandabout.com/content/summit-view-valley-school",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
   },
   {
     "id": "career-education-center",
@@ -21,7 +31,12 @@
     "address": "465 Horizon Cir, Camarillo, CA 93010",
     "city": "Camarillo",
     "website": "https://www.vcoe.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 34.207577,
+    "lng": -119.075186,
+    "phone": "+1 805-437-1420",
+    "coordinateSource": "https://www.mapmybizz.com/place/career-education-center-camarillo/",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
   },
   {
     "id": "a-b-miller-high-school",
@@ -29,7 +44,12 @@
     "address": "6821 Oleander Ave, Fontana, CA 92336",
     "city": "Fontana",
     "website": "https://www.fusd.net",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 34.12946,
+    "lng": -117.4481,
+    "phone": "+1 909-357-5800",
+    "coordinateSource": "https://mapcarta.com/22989982",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
   },
   {
     "id": "school-of-extended-educational-options",
@@ -37,7 +57,13 @@
     "address": "1444 E Holt Ave, Pomona, CA 91767",
     "city": "Pomona",
     "website": "https://seeo.pusd.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 34.061776,
+    "lng": -117.722583,
+    "phone": "+1 909-397-4900",
+    "coordinateSource": "https://www.pomonaca.gov/home/showpublisheddocument/200/637455477592800000",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance",
+    "locationNote": "Pin follows the supplied 1444 E Holt Ave address. CDE now lists 2211 North Orange Grove Ave; confirm before changing this listing."
   },
   {
     "id": "flabob-airport-preparatory-academy",
@@ -45,7 +71,12 @@
     "address": "5580 42nd St, Riverside, CA 92509",
     "city": "Riverside",
     "website": "https://springscs.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.9920325,
+    "lng": -117.4095074,
+    "phone": "+1 951-225-7100",
+    "coordinateSource": "https://maps.app.goo.gl/3iBdjmWDfZerhRyy5",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
   },
   {
     "id": "corona-norco-unified-district",
@@ -53,7 +84,12 @@
     "address": "2820 Clark Ave, Norco, CA 92860",
     "city": "Norco",
     "website": "https://www.cnusd.k12.ca.us",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.92222,
+    "lng": -117.56083,
+    "phone": "+1 951-736-5000",
+    "coordinateSource": "https://en.wikipedia.org/wiki/Corona-Norco_Unified_School_District",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
   },
   {
     "id": "north-high-school",
@@ -61,7 +97,12 @@
     "address": "3620 W 182nd St, Torrance, CA 90504",
     "city": "Torrance",
     "website": "https://www.tusd.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.8639,
+    "lng": -118.3364,
+    "phone": "+1 310-533-4412",
+    "coordinateSource": "https://schoolfinderusa.com/california/torrance-unified-0639420/north-high-063942006568",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
   },
   {
     "id": "canyon-high-school",
@@ -69,7 +110,12 @@
     "address": "220 S Imperial Hwy, Anaheim, CA 92807",
     "city": "Anaheim",
     "website": "https://www.canyonhighschool.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.847994,
+    "lng": -117.788505,
+    "phone": "+1 714-532-8000",
+    "coordinateSource": "https://ciwqs.waterboards.ca.gov/ciwqs/readOnly/CiwqsReportServlet?newPageNumber=4065&reportID=6588758",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
   },
   {
     "id": "san-jacinto-valley-academy",
@@ -77,7 +123,12 @@
     "address": "480 N San Jacinto Ave, San Jacinto, CA 92583",
     "city": "San Jacinto",
     "website": "https://www.sjva.net",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.794137,
+    "lng": -116.960404,
+    "phone": "+1 951-654-6113",
+    "coordinateSource": "https://www.infoschools.net/usa/san-jacinto/san-jacinto-valley-academy-san-jacinto-ca",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
   },
   {
     "id": "shadow-hills-high-school",
@@ -85,7 +136,12 @@
     "address": "39-225 Jefferson St, Indio, CA 92203",
     "city": "Indio",
     "website": "https://www.cde.ca.gov",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.76450852,
+    "lng": -116.2703969,
+    "phone": "+1 760-393-5400",
+    "coordinateSource": "https://rccd.asian.gg/map/?id=7",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
   },
   {
     "id": "irvine-high-school",
@@ -93,7 +149,12 @@
     "address": "4321 Walnut Ave, Irvine, CA 92604",
     "city": "Irvine",
     "website": "https://www.irvinehigh.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.70236,
+    "lng": -117.77972,
+    "phone": "+1 949-936-7000",
+    "coordinateSource": "https://ochealthinfo.com/sites/healthcare/files/2023-02/Food%20web%20020623_1.pdf",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
   },
   {
     "id": "desert-mirage-high-school",
@@ -101,7 +162,12 @@
     "address": "86150 66th Ave, Thermal, CA 92274",
     "city": "Thermal",
     "website": "https://dmhs.cvusd.us",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.571858,
+    "lng": -116.161326,
+    "phone": "+1 760-397-2255",
+    "coordinateSource": "https://www.infoschools.net/usa/thermal/desert-mirage-high-thermal-ca",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
   },
   {
     "id": "army-and-navy-academy",
@@ -109,7 +175,12 @@
     "address": "2605 Carlsbad Blvd, Carlsbad, CA 92008",
     "city": "Carlsbad",
     "website": "https://www.armyandnavyacademy.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.16313,
+    "lng": -117.35464,
+    "phone": "+1 888-762-2338",
+    "coordinateSource": "https://mapcarta.com/22995054",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
   },
   {
     "id": "high-tech-high-north-county",
@@ -117,7 +188,12 @@
     "address": "1420 W San Marcos Blvd, San Marcos, CA 92078",
     "city": "San Marcos",
     "website": "https://www.hightechhigh.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.132371,
+    "lng": -117.202227,
+    "phone": "+1 760-759-2700",
+    "coordinateSource": "https://www.infoschools.net/usa/san-marcos/high-tech-high-north-county-san-marcos-ca",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
   },
   {
     "id": "foothills-christian-high-school",
@@ -125,7 +201,12 @@
     "address": "2321 Dryden Rd, El Cajon, CA 92020",
     "city": "El Cajon",
     "website": "https://www.foothillsschool.net",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 32.79847,
+    "lng": -116.99592,
+    "phone": "+1 619-303-8035",
+    "coordinateSource": "https://churcheslist.com/grace-baptist-church-280",
+    "coordinateAccuracy": "Approximate published coordinate for the supplied street address"
   },
   {
     "id": "rock-academy",
@@ -133,7 +214,12 @@
     "address": "2277 Rosecrans St, San Diego, CA 92106",
     "city": "San Diego",
     "website": "https://www.therockacademy.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 32.7359,
+    "lng": -117.2187,
+    "phone": "+1 619-764-5200",
+    "coordinateSource": "https://en.wikipedia.org/wiki/Rock_Academy",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
   },
   {
     "id": "e3-civic-high",
@@ -142,7 +228,12 @@
     "city": "San Diego",
     "website": "https://www.e3civichigh.com",
     "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "geocodeAddress": "395 Eleventh Ave, San Diego, CA 92101"
+    "geocodeAddress": "395 Eleventh Ave, San Diego, CA 92101",
+    "lat": 32.70917,
+    "lng": -117.15448,
+    "phone": "+1 619-546-0000",
+    "coordinateSource": "https://mapcarta.com/N5732708129",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
   },
   {
     "id": "calvary-christian-academy",
@@ -150,6 +241,11 @@
     "address": "1771 E Palomar St, Chula Vista, CA 91913",
     "city": "Chula Vista",
     "website": "https://www.ccaknights.com",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 32.63239,
+    "lng": -116.9839,
+    "phone": "+1 619-591-2260",
+    "coordinateSource": "https://usa.worldplaces.me/private-schools-in-chula-vista/44675512-calvary-christian-academy-royal-knights.html",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
   }
 ]
