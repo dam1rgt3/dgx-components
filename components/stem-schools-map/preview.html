@@ -1,12 +1,13 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>STEM Schools Map Preview</title>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="strict-origin-when-cross-origin"><title>STEM Schools Map Preview</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
-<style>body{margin:0;padding:32px;background:#f4f2ed;color:#18364b;font-family:Arial,sans-serif}main{max-width:1320px;margin:auto}h1{font-size:32px;font-weight:500;margin:0 0 12px}header p{line-height:1.6;max-width:850px}#status{min-height:24px;font-size:14px}button{font:inherit}#download{padding:10px 16px;margin:0 0 16px;border:1px solid #b9c7ca;background:#fffdf9;color:#18364b;cursor:pointer}@media(max-width:600px){body{padding:16px}h1{font-size:26px}}.stem-schools-map{--ssm-navy:#18364b;--ssm-blue:#236583;--ssm-paper:#fffdf9;display:grid;grid-template-columns:320px minmax(0,1fr);height:660px;min-height:480px;background:var(--ssm-paper);border:1px solid #d9e0df;border-radius:8px;overflow:hidden;isolation:isolate;font-family:Arial,Helvetica,sans-serif;color:var(--ssm-navy);box-shadow:0 18px 50px -35px #18364b55}.stem-schools-map *{box-sizing:border-box}.stem-schools-map button,.stem-schools-map input{font:inherit}.stem-schools-map button{cursor:pointer}.stem-schools-map button:focus-visible,.stem-schools-map input:focus-visible,.stem-schools-map a:focus-visible,.stem-schools-map .leaflet-marker-icon:focus-visible{outline:3px solid #b08034;outline-offset:3px}.ssm-directory{display:flex;flex-direction:column;min-height:0;border-right:1px solid #d9e0df;background:var(--ssm-paper);z-index:2}.ssm-search{padding:26px 22px 14px}.ssm-search label{display:block;font-size:23px;font-weight:500;letter-spacing:-.6px;margin-bottom:18px}.ssm-search-input{position:relative}.ssm-search input{width:100%;border:1px solid #c9d5d8;border-radius:3px;padding:12px 30px 12px 12px;background:#fff;color:var(--ssm-navy);font-size:13px}.ssm-search input::-webkit-search-cancel-button{display:none}.ssm-search-input button{position:absolute;right:2px;top:2px;bottom:2px;width:32px;border:0;background:none;color:#4d6674;font-size:22px}.ssm-search p{font-size:12px;color:#60727b;margin:14px 0 0}.ssm-results{list-style:none;padding:0 12px;margin:0;overflow-y:auto;overscroll-behavior:contain;flex:1;scrollbar-width:thin;scrollbar-color:#bccbcf transparent}.ssm-results li{margin:0}.ssm-school{width:100%;display:flex;gap:12px;align-items:flex-start;text-align:left;padding:17px 10px;border:0;border-bottom:1px solid #e4e8e4;background:none;color:var(--ssm-navy);transition:background .15s}.ssm-school:hover,.ssm-school[aria-pressed=true]{background:#eaf1f2}.ssm-school strong{font-size:14px;line-height:1.4;font-weight:600;display:block}.ssm-school span span{display:block;font-size:12px;color:#60727b;margin-top:5px;line-height:1.5}.ssm-school small{display:block;color:#7a653e;font-size:11px;margin-top:6px}.ssm-school-dot{width:6px;height:6px;flex:0 0 6px;border-radius:50%;background:#82a2ae;margin-top:7px}.ssm-school[aria-pressed=true] .ssm-school-dot{background:#af7d31;box-shadow:0 0 0 4px #af7d3118}.ssm-school-arrow{margin-left:auto;color:#71919b}.ssm-hint{padding:18px 22px;font-size:11px;color:#647780;border-top:1px solid #e1e7e4}.ssm-empty,.ssm-pending{padding:16px 22px;font-size:13px;line-height:1.6}.ssm-pending{border-top:1px solid #d9e0df}.ssm-pending a{color:#236583}.ssm-map-wrap{position:relative;min-width:0;min-height:0}.ssm-map{position:absolute;inset:0;background:#dfe8e7;z-index:0}.ssm-map .leaflet-tile-pane{filter:saturate(.5)}.ssm-overview{position:absolute;z-index:600;top:20px;right:20px;border:1px solid #cad8d8;border-radius:3px;padding:11px 16px;background:#fffdf9f5;color:#18364b;box-shadow:0 3px 14px #18364b12;font-size:12px!important}.ssm-overview:disabled{opacity:.5;cursor:default}.ssm-marker{background:none;border:0}.ssm-marker>span{display:grid;place-items:center;width:34px;height:34px;background:#236583;color:white;border:2px solid #fffdf9;border-radius:50%;box-shadow:0 3px 12px #18364b40;transition:transform .15s}.ssm-marker svg{width:22px;height:22px}.ssm-marker:hover>span,.ssm-marker.is-selected>span{background:#18364b;transform:scale(1.13);box-shadow:0 0 0 3px #b0803455,0 3px 12px #18364b40}.ssm-cluster{background:#23658320;border:1px solid #23658330;border-radius:50%;padding:5px}.ssm-cluster span{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#18364b;color:white;font-size:13px;font-weight:600}.ssm-tooltip{background:#fffdf9;color:#18364b;border:1px solid #cdd9d9;border-radius:3px;padding:9px 12px;font-size:13px;box-shadow:0 5px 18px #18364b20;white-space:normal;max-width:260px;line-height:1.4}.ssm-popup strong{font-size:16px;line-height:1.4;color:#18364b;display:block}.ssm-popup p{font-size:13px;line-height:1.6;color:#536c7a;margin:10px 0!important}.ssm-popup-links{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px}.ssm-popup a{color:#236583!important;font-size:12px;font-weight:600}.ssm-school-popup .leaflet-popup-content-wrapper{border-radius:5px;background:#fffdf9}.ssm-school-popup .leaflet-popup-content{margin:20px}.ssm-map-error{position:absolute;bottom:34px;left:16px;right:16px;z-index:600;background:#fffdf9;border:1px solid #d9e0df;padding:13px;font-size:12px;line-height:1.5}.ssm-map .leaflet-control-attribution{font-size:10px;background:#fffdf9ed}.ssm-map .leaflet-control-zoom{border:1px solid #cdd9d9;box-shadow:none}.ssm-map .leaflet-control-zoom a{color:#18364b;background:#fffdf9}.ssm-map .leaflet-control-zoom{margin-right:20px;margin-bottom:25px}
+<style>body{margin:0;padding:32px;background:#f4f2ed;color:#18364b;font-family:Arial,sans-serif}main{max-width:1320px;margin:auto}h1{font-size:32px;font-weight:500;margin:0 0 12px}header p{line-height:1.6;max-width:850px;margin-bottom:26px}#status{min-height:24px;font-size:14px}button{font:inherit}@media(max-width:600px){body{padding:16px}h1{font-size:26px}}.stem-schools-map{--ssm-navy:#18364b;--ssm-blue:#236583;--ssm-paper:#fffdf9;display:grid;grid-template-columns:320px minmax(0,1fr);height:660px;min-height:480px;background:var(--ssm-paper);border:1px solid #d9e0df;border-radius:8px;overflow:hidden;isolation:isolate;font-family:Arial,Helvetica,sans-serif;color:var(--ssm-navy);box-shadow:0 18px 50px -35px #18364b55}.stem-schools-map *{box-sizing:border-box}.stem-schools-map button,.stem-schools-map input{font:inherit}.stem-schools-map button{cursor:pointer}.stem-schools-map button:focus-visible,.stem-schools-map input:focus-visible,.stem-schools-map a:focus-visible,.stem-schools-map .leaflet-marker-icon:focus-visible{outline:3px solid #b08034;outline-offset:3px}.ssm-directory{display:flex;flex-direction:column;min-height:0;border-right:1px solid #d9e0df;background:var(--ssm-paper);z-index:2}.ssm-search{padding:26px 22px 14px}.ssm-search label{display:block;font-size:23px;font-weight:500;letter-spacing:-.6px;margin-bottom:18px}.ssm-search-input{position:relative}.ssm-search input{width:100%;border:1px solid #c9d5d8;border-radius:3px;padding:12px 30px 12px 12px;background:#fff;color:var(--ssm-navy);font-size:13px}.ssm-search input::-webkit-search-cancel-button{display:none}.ssm-search-input button{position:absolute;right:2px;top:2px;bottom:2px;width:32px;border:0;background:none;color:#4d6674;font-size:22px}.ssm-search p{font-size:12px;color:#60727b;margin:14px 0 0}.ssm-results{list-style:none;padding:0 12px;margin:0;overflow-y:auto;overscroll-behavior:contain;flex:1;scrollbar-width:thin;scrollbar-color:#bccbcf transparent}.ssm-results li{margin:0}.ssm-school{width:100%;display:flex;gap:12px;align-items:flex-start;text-align:left;padding:17px 10px;border:0;border-bottom:1px solid #e4e8e4;background:none;color:var(--ssm-navy);transition:background .15s}.ssm-school:hover,.ssm-school[aria-pressed=true]{background:#eaf1f2}.ssm-school strong{font-size:14px;line-height:1.4;font-weight:600;display:block}.ssm-school span span{display:block;font-size:12px;color:#60727b;margin-top:5px;line-height:1.5}.ssm-school small{display:block;color:#7a653e;font-size:11px;margin-top:6px}.ssm-school-dot{width:6px;height:6px;flex:0 0 6px;border-radius:50%;background:#82a2ae;margin-top:7px}.ssm-school[aria-pressed=true] .ssm-school-dot{background:#af7d31;box-shadow:0 0 0 4px #af7d3118}.ssm-school-arrow{margin-left:auto;color:#71919b}.ssm-hint{padding:18px 22px;font-size:11px;color:#647780;border-top:1px solid #e1e7e4}.ssm-empty,.ssm-pending{padding:16px 22px;font-size:13px;line-height:1.6}.ssm-pending{border-top:1px solid #d9e0df}.ssm-pending a{color:#236583}.ssm-map-wrap{position:relative;min-width:0;min-height:0}.ssm-map{position:absolute;inset:0;background:#dfe8e7;z-index:0}.ssm-map .leaflet-tile-pane{filter:saturate(.5)}.ssm-overview{position:absolute;z-index:600;top:20px;right:20px;border:1px solid #cad8d8;border-radius:3px;padding:11px 16px;background:#fffdf9f5;color:#18364b;box-shadow:0 3px 14px #18364b12;font-size:12px!important}.ssm-overview:disabled{opacity:.5;cursor:default}.ssm-marker{background:none;border:0}.ssm-marker>span{display:grid;place-items:center;width:34px;height:34px;background:#236583;color:white;border:2px solid #fffdf9;border-radius:50%;box-shadow:0 3px 12px #18364b40;transition:transform .15s}.ssm-marker svg{width:22px;height:22px}.ssm-marker:hover>span,.ssm-marker.is-selected>span{background:#18364b;transform:scale(1.13);box-shadow:0 0 0 3px #b0803455,0 3px 12px #18364b40}.ssm-cluster{background:#23658320;border:1px solid #23658330;border-radius:50%;padding:5px}.ssm-cluster span{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#18364b;color:white;font-size:13px;font-weight:600}.ssm-tooltip{background:#fffdf9;color:#18364b;border:1px solid #cdd9d9;border-radius:3px;padding:9px 12px;font-size:13px;box-shadow:0 5px 18px #18364b20;white-space:normal;max-width:260px;line-height:1.4}.ssm-popup strong{font-size:16px;line-height:1.4;color:#18364b;display:block}.ssm-popup p{font-size:13px;line-height:1.6;color:#536c7a;margin:10px 0!important}.ssm-popup-links{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px}.ssm-popup a{color:#236583!important;font-size:12px;font-weight:600}.ssm-school-popup .leaflet-popup-content-wrapper{border-radius:5px;background:#fffdf9}.ssm-school-popup .leaflet-popup-content{margin:20px}.ssm-map-error{position:absolute;bottom:34px;left:16px;right:16px;z-index:600;background:#fffdf9;border:1px solid #d9e0df;padding:13px;font-size:12px;line-height:1.5}.ssm-map .leaflet-control-attribution{font-size:10px;background:#fffdf9ed}.ssm-map .leaflet-control-zoom{border:1px solid #cdd9d9;box-shadow:none}.ssm-map .leaflet-control-zoom a{color:#18364b;background:#fffdf9}.ssm-map .leaflet-control-zoom{margin-right:20px;margin-bottom:25px}
 @media(max-width:760px){.stem-schools-map{height:auto;grid-template-columns:1fr}.ssm-map-wrap{grid-row:1;height:440px}.ssm-directory{border-right:0;border-top:1px solid #d9e0df}.ssm-search{padding:22px 20px 12px}.ssm-search label{font-size:21px;margin-bottom:12px}.ssm-results{max-height:300px;flex:auto}.ssm-overview{top:12px;right:12px}.ssm-hint{padding:14px 20px}}
 @media(prefers-reduced-motion:reduce){.ssm-marker>span,.ssm-school{transition:none}}
 </style></head>
-<body><main><header><h1>Schools with STEM aviation</h1><p>Explore the directory. Hover over a school marker for its name, or select a school for its address and directions.</p><p id="status" role="status">Loading preview dependencies...</p><button id="download" type="button" hidden>Download located school data</button></header><div id="root"></div><p style="font-size:13px;line-height:1.6">Preview: 19 published starter entries. The current website may list more schools. Address matches are street-range estimates and need review before publishing.</p></main>
+<body><main><header><h1>Schools with STEM aviation</h1><p>Explore 19 participating schools. Hover over a marker for its name, or select a school for its address and directions.</p></header><div id="status" role="status">Loading the map...</div><div id="root"></div></main>
+<script>window.addEventListener('error',function(e){document.getElementById('status').textContent='The preview could not load. Please refresh or open preview.html in a browser with internet access.';});</script>
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -14,6 +15,258 @@
 <script src="https://unpkg.com/@babel/standalone@7.26.9/babel.min.js"></script>
 <script type="text/babel" data-presets="react">
 const {useEffect,useId,useMemo,useRef,useState}=React;
+const defaultSchools=[
+  {
+    "id": "big-bear-high-school",
+    "name": "Big Bear High School",
+    "address": "351 Maple Ln, Big Bear Lake, CA 92315",
+    "city": "Big Bear Lake",
+    "website": "https://bbhs.bearvalleyusd.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 34.25385,
+    "lng": -116.82549,
+    "phone": "+1 909-585-6892",
+    "coordinateSource": "https://mapcarta.com/23001998",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+  },
+  {
+    "id": "stem3-academy",
+    "name": "STEM3 Academy",
+    "address": "6455 Coldwater Canyon Ave, Valley Glen, CA 91606",
+    "city": "Valley Glen",
+    "website": "https://www.stem3academy.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 34.188287,
+    "lng": -118.414051,
+    "phone": "+1 818-623-6386",
+    "coordinateSource": "https://sanfernando.kidsoutandabout.com/content/summit-view-valley-school",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+  },
+  {
+    "id": "career-education-center",
+    "name": "Career Education Center",
+    "address": "465 Horizon Cir, Camarillo, CA 93010",
+    "city": "Camarillo",
+    "website": "https://www.vcoe.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 34.207577,
+    "lng": -119.075186,
+    "phone": "+1 805-437-1420",
+    "coordinateSource": "https://www.mapmybizz.com/place/career-education-center-camarillo/",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+  },
+  {
+    "id": "a-b-miller-high-school",
+    "name": "A.B. Miller High School",
+    "address": "6821 Oleander Ave, Fontana, CA 92336",
+    "city": "Fontana",
+    "website": "https://www.fusd.net",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 34.12946,
+    "lng": -117.4481,
+    "phone": "+1 909-357-5800",
+    "coordinateSource": "https://mapcarta.com/22989982",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+  },
+  {
+    "id": "school-of-extended-educational-options",
+    "name": "School of Extended Educational Options",
+    "address": "1444 E Holt Ave, Pomona, CA 91767",
+    "city": "Pomona",
+    "website": "https://seeo.pusd.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 34.061776,
+    "lng": -117.722583,
+    "phone": "+1 909-397-4900",
+    "coordinateSource": "https://www.pomonaca.gov/home/showpublisheddocument/200/637455477592800000",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance",
+    "locationNote": "Pin follows the supplied 1444 E Holt Ave address. CDE now lists 2211 North Orange Grove Ave; confirm before changing this listing."
+  },
+  {
+    "id": "flabob-airport-preparatory-academy",
+    "name": "Flabob Airport Preparatory Academy",
+    "address": "5580 42nd St, Riverside, CA 92509",
+    "city": "Riverside",
+    "website": "https://springscs.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.9920325,
+    "lng": -117.4095074,
+    "phone": "+1 951-225-7100",
+    "coordinateSource": "https://maps.app.goo.gl/3iBdjmWDfZerhRyy5",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+  },
+  {
+    "id": "corona-norco-unified-district",
+    "name": "Corona-Norco Unified District",
+    "address": "2820 Clark Ave, Norco, CA 92860",
+    "city": "Norco",
+    "website": "https://www.cnusd.k12.ca.us",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.92222,
+    "lng": -117.56083,
+    "phone": "+1 951-736-5000",
+    "coordinateSource": "https://en.wikipedia.org/wiki/Corona-Norco_Unified_School_District",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+  },
+  {
+    "id": "north-high-school",
+    "name": "North High School",
+    "address": "3620 W 182nd St, Torrance, CA 90504",
+    "city": "Torrance",
+    "website": "https://www.tusd.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.8639,
+    "lng": -118.3364,
+    "phone": "+1 310-533-4412",
+    "coordinateSource": "https://schoolfinderusa.com/california/torrance-unified-0639420/north-high-063942006568",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+  },
+  {
+    "id": "canyon-high-school",
+    "name": "Canyon High School",
+    "address": "220 S Imperial Hwy, Anaheim, CA 92807",
+    "city": "Anaheim",
+    "website": "https://www.canyonhighschool.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.847994,
+    "lng": -117.788505,
+    "phone": "+1 714-532-8000",
+    "coordinateSource": "https://ciwqs.waterboards.ca.gov/ciwqs/readOnly/CiwqsReportServlet?newPageNumber=4065&reportID=6588758",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+  },
+  {
+    "id": "san-jacinto-valley-academy",
+    "name": "San Jacinto Valley Academy",
+    "address": "480 N San Jacinto Ave, San Jacinto, CA 92583",
+    "city": "San Jacinto",
+    "website": "https://www.sjva.net",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.794137,
+    "lng": -116.960404,
+    "phone": "+1 951-654-6113",
+    "coordinateSource": "https://www.infoschools.net/usa/san-jacinto/san-jacinto-valley-academy-san-jacinto-ca",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+  },
+  {
+    "id": "shadow-hills-high-school",
+    "name": "Shadow Hills High School",
+    "address": "39-225 Jefferson St, Indio, CA 92203",
+    "city": "Indio",
+    "website": "https://www.cde.ca.gov",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.76450852,
+    "lng": -116.2703969,
+    "phone": "+1 760-393-5400",
+    "coordinateSource": "https://rccd.asian.gg/map/?id=7",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+  },
+  {
+    "id": "irvine-high-school",
+    "name": "Irvine High School",
+    "address": "4321 Walnut Ave, Irvine, CA 92604",
+    "city": "Irvine",
+    "website": "https://www.irvinehigh.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.70236,
+    "lng": -117.77972,
+    "phone": "+1 949-936-7000",
+    "coordinateSource": "https://ochealthinfo.com/sites/healthcare/files/2023-02/Food%20web%20020623_1.pdf",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+  },
+  {
+    "id": "desert-mirage-high-school",
+    "name": "Desert Mirage High School",
+    "address": "86150 66th Ave, Thermal, CA 92274",
+    "city": "Thermal",
+    "website": "https://dmhs.cvusd.us",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.571858,
+    "lng": -116.161326,
+    "phone": "+1 760-397-2255",
+    "coordinateSource": "https://www.infoschools.net/usa/thermal/desert-mirage-high-thermal-ca",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+  },
+  {
+    "id": "army-and-navy-academy",
+    "name": "Army and Navy Academy",
+    "address": "2605 Carlsbad Blvd, Carlsbad, CA 92008",
+    "city": "Carlsbad",
+    "website": "https://www.armyandnavyacademy.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.16313,
+    "lng": -117.35464,
+    "phone": "+1 888-762-2338",
+    "coordinateSource": "https://mapcarta.com/22995054",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+  },
+  {
+    "id": "high-tech-high-north-county",
+    "name": "High Tech High North County",
+    "address": "1420 W San Marcos Blvd, San Marcos, CA 92078",
+    "city": "San Marcos",
+    "website": "https://www.hightechhigh.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 33.132371,
+    "lng": -117.202227,
+    "phone": "+1 760-759-2700",
+    "coordinateSource": "https://www.infoschools.net/usa/san-marcos/high-tech-high-north-county-san-marcos-ca",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+  },
+  {
+    "id": "foothills-christian-high-school",
+    "name": "Foothills Christian High School",
+    "address": "2321 Dryden Rd, El Cajon, CA 92020",
+    "city": "El Cajon",
+    "website": "https://www.foothillsschool.net",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 32.79847,
+    "lng": -116.99592,
+    "phone": "+1 619-303-8035",
+    "coordinateSource": "https://churcheslist.com/grace-baptist-church-280",
+    "coordinateAccuracy": "Approximate published coordinate for the supplied street address"
+  },
+  {
+    "id": "rock-academy",
+    "name": "Rock Academy",
+    "address": "2277 Rosecrans St, San Diego, CA 92106",
+    "city": "San Diego",
+    "website": "https://www.therockacademy.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 32.7359,
+    "lng": -117.2187,
+    "phone": "+1 619-764-5200",
+    "coordinateSource": "https://en.wikipedia.org/wiki/Rock_Academy",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+  },
+  {
+    "id": "e3-civic-high",
+    "name": "e3 Civic High",
+    "address": "395 Eleventh Ave 6th floor, San Diego, CA 92101",
+    "city": "San Diego",
+    "website": "https://www.e3civichigh.com",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "geocodeAddress": "395 Eleventh Ave, San Diego, CA 92101",
+    "lat": 32.70917,
+    "lng": -117.15448,
+    "phone": "+1 619-546-0000",
+    "coordinateSource": "https://mapcarta.com/N5732708129",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+  },
+  {
+    "id": "calvary-christian-academy",
+    "name": "Calvary Christian Academy",
+    "address": "1771 E Palomar St, Chula Vista, CA 91913",
+    "city": "Chula Vista",
+    "website": "https://www.ccaknights.com",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "lat": 32.63239,
+    "lng": -116.9839,
+    "phone": "+1 619-591-2260",
+    "coordinateSource": "https://usa.worldplaces.me/private-schools-in-chula-vista/44675512-calvary-christian-academy-royal-knights.html",
+    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+  }
+]
+;
 const hasCoordinates=s=>typeof s.lat==='number'&&typeof s.lng==='number'&&Number.isFinite(s.lat)&&Number.isFinite(s.lng)&&s.lat>=-90&&s.lat<=90&&s.lng>=-180&&s.lng<=180;
 function safeWebsite(value){try{const u=new URL(value);return ['https:','http:'].includes(u.protocol)?u.href:null;}catch{return null;}}
 function normalizeSchools(input){
@@ -23,20 +276,9 @@ function normalizeSchools(input){
 }
 function filterSchools(schools,query){const q=String(query||'').trim().toLocaleLowerCase();return schools.filter(s=>[s.name,s.city,s.address,s.zip].filter(Boolean).join(' ').toLocaleLowerCase().includes(q));}
 
-function acceptMatch(school,matches){
-  if(!Array.isArray(matches)||matches.length!==1)return null;
-  const m=matches[0],c=m.addressComponents||{};
-  const zip=(school.address.match(/\b\d{5}(?:-\d{4})?\s*$/)||[])[0]?.slice(0,5);
-  const number=(school.geocodeAddress||school.address).match(/^\s*([\d-]+)/)?.[1];
-  if(!zip||String(c.zip)!==zip||c.state!=='CA'||!number||!m.matchedAddress?.startsWith(number+' '))return null;
-  const point={lat:m.coordinates?.y,lng:m.coordinates?.x};
-  return hasCoordinates(point)?{...point,matchedAddress:m.matchedAddress,geocodeProvider:'US Census',geocodeStatus:'matched'}:null;
-}
-
-
 
 /** Pass the complete existing page dataset, enriched with verified lat/lng values. */
-function SchoolsMap({schools = [], className = ''}) {
+function SchoolsMap({schools = defaultSchools, className = ''}) {
   const records=useMemo(()=>normalizeSchools(schools),[schools]);
   const [query,setQuery]=useState('');
   const [active,setActive]=useState(null);
@@ -88,9 +330,9 @@ function SchoolsMap({schools = [], className = ''}) {
       const links=document.createElement('div');links.className='ssm-popup-links';
       const directions=document.createElement('a');directions.textContent='Directions ↗';directions.href=`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(s.address)}`;directions.target='_blank';directions.rel='noopener noreferrer';links.append(directions);
       const url=safeWebsite(s.website);if(url){const site=document.createElement('a');site.textContent='School website ↗';site.href=url;site.target='_blank';site.rel='noopener noreferrer';links.append(site);}
-      popup.append(links);marker.bindPopup(popup,{maxWidth:300,autoPanPadding:[28,70],className:'ssm-school-popup'});
-      marker.on('click',()=>{setActive(s.id);buttons.current.get(s.id)?.scrollIntoView({block:'nearest',behavior:motion()?'instant':'smooth'});});
-      marker.on('add',()=>{const el=marker.getElement();if(!el)return;el.setAttribute('role','button');el.setAttribute('aria-label',`View ${s.name}`);el.setAttribute('aria-pressed',String(s.id===activeRef.current));el.onfocus=()=>marker.openTooltip();el.onblur=()=>marker.closeTooltip();el.onkeydown=e=>{if(e.key===' '){e.preventDefault();marker.fire('click');marker.openPopup();}};});
+      if(s.phone){const phone=document.createElement('a');phone.textContent=s.phone;phone.href='tel:'+s.phone.replace(/[^+0-9]/g,'');links.append(phone);}popup.append(links);marker.bindPopup(popup,{maxWidth:300,autoPanPadding:[28,70],className:'ssm-school-popup'});
+      marker.on('click',()=>{activeRef.current=s.id;setActive(s.id);buttons.current.get(s.id)?.scrollIntoView({block:'nearest',behavior:motion()?'instant':'smooth'});});
+      marker.on('add',()=>{const el=marker.getElement();if(!el)return;el.classList.toggle('is-selected',s.id===activeRef.current);el.setAttribute('role','button');el.setAttribute('aria-label',`View ${s.name}`);el.setAttribute('aria-pressed',String(s.id===activeRef.current));el.onfocus=()=>marker.openTooltip();el.onblur=()=>marker.closeTooltip();el.onkeydown=e=>{if(e.key===' '){e.preventDefault();marker.fire('click');marker.openPopup();}};});
       markers.set(s.id,marker);cluster.addLayer(marker);
     });
     const coords=visible.filter(hasCoordinates).map(s=>[s.lat,s.lng]);
@@ -106,7 +348,7 @@ function SchoolsMap({schools = [], className = ''}) {
   function choose(s){
     activeRef.current=s.id;setActive(s.id);const api=instance.current,marker=api?.markers.get(s.id);if(!marker)return;
     const chosen=s.id;
-    api.cluster.zoomToShowLayer(marker,()=>{if(instance.current===api&&activeRef.current===chosen&&visibleRef.current.some(item=>item.id===chosen)){marker.openPopup();marker.openTooltip();}});
+    api.cluster.zoomToShowLayer(marker,()=>{if(instance.current===api&&activeRef.current===chosen&&visibleRef.current.some(item=>item.id===chosen)){marker.closeTooltip();marker.openPopup();}});
   }
   function highlight(s,on){const marker=instance.current?.markers.get(s.id);if(marker&&instance.current.cluster.hasLayer(marker)){if(on)marker.openTooltip();else marker.closeTooltip();}}
   function reset(){const api=instance.current;if(!api)return;const coords=visible.filter(hasCoordinates).map(s=>[s.lat,s.lng]);if(coords.length)api.map.fitBounds(coords,{padding:[50,60],maxZoom:coords.length===1?14:11,animate:!motion()});}
@@ -114,7 +356,7 @@ function SchoolsMap({schools = [], className = ''}) {
   return <section className={`stem-schools-map ${className}`} aria-label="Schools with STEM aviation">
     <aside className="ssm-directory">
       <div className="ssm-search"><label htmlFor={searchId}>Find a school</label><div className="ssm-search-input"><input id={searchId} type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="School, city, or ZIP code" autoComplete="off"/>{query&&<button type="button" onClick={()=>setQuery('')} aria-label="Clear search">×</button>}</div><p aria-live="polite">{visible.length} {visible.length===1?'entry':'entries'}{mapped.length!==visible.length?` · ${mapped.length} mapped`:''}</p></div>
-      <ul className="ssm-results" aria-label="School directory">{visible.map(s=><li key={s.id}><button ref={node=>{if(node)buttons.current.set(s.id,node);else buttons.current.delete(s.id);}} type="button" className="ssm-school" aria-pressed={active===s.id} onClick={()=>choose(s)} onMouseEnter={()=>highlight(s,true)} onMouseLeave={()=>highlight(s,false)} onFocus={()=>highlight(s,true)} onBlur={()=>highlight(s,false)}><span className="ssm-school-dot"/><span><strong>{s.name}</strong><span>{s.city||s.address}</span>{!hasCoordinates(s)&&<small>Map location pending</small>}</span><span aria-hidden="true" className="ssm-school-arrow">+<//span></button></li>)}</ul>
+      <ul className="ssm-results" aria-label="School directory">{visible.map(s=><li key={s.id}><button ref={node=>{if(node)buttons.current.set(s.id,node);else buttons.current.delete(s.id);}} type="button" className="ssm-school" aria-pressed={active===s.id} onClick={()=>choose(s)} onMouseEnter={()=>highlight(s,true)} onMouseLeave={()=>highlight(s,false)} onFocus={()=>highlight(s,true)} onBlur={()=>highlight(s,false)}><span className="ssm-school-dot"/><span><strong>{s.name}</strong><span>{s.city||s.address}</span>{!hasCoordinates(s)&&<small>Map location pending</small>}</span><span aria-hidden="true" className="ssm-school-arrow">+</span></button></li>)}</ul>
       {!visible.length&&<p className="ssm-empty">No schools match your search.</p>}
       {selected&&!hasCoordinates(selected)&&<div className="ssm-pending" aria-live="polite"><strong>{selected.name}</strong><p>{selected.address}</p><a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selected.name+' '+selected.address)}`} target="_blank" rel="noopener noreferrer">Find on Google Maps</a></div>}
       <div className="ssm-hint">Hover for a name. Select for details.</div>
@@ -126,197 +368,6 @@ function SchoolsMap({schools = [], className = ''}) {
   </section>;
 }
 
-const initialSchools=[
-  {
-    "id": "big-bear-high-school",
-    "name": "Big Bear High School",
-    "address": "351 Maple Ln, Big Bear Lake, CA 92315",
-    "city": "Big Bear Lake",
-    "website": "https://bbhs.bearvalleyusd.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  },
-  {
-    "id": "stem3-academy",
-    "name": "STEM3 Academy",
-    "address": "6455 Coldwater Canyon Ave, Valley Glen, CA 91606",
-    "city": "Valley Glen",
-    "website": "https://www.stem3academy.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  },
-  {
-    "id": "career-education-center",
-    "name": "Career Education Center",
-    "address": "465 Horizon Cir, Camarillo, CA 93010",
-    "city": "Camarillo",
-    "website": "https://www.vcoe.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  },
-  {
-    "id": "a-b-miller-high-school",
-    "name": "A.B. Miller High School",
-    "address": "6821 Oleander Ave, Fontana, CA 92336",
-    "city": "Fontana",
-    "website": "https://www.fusd.net",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  },
-  {
-    "id": "school-of-extended-educational-options",
-    "name": "School of Extended Educational Options",
-    "address": "1444 E Holt Ave, Pomona, CA 91767",
-    "city": "Pomona",
-    "website": "https://seeo.pusd.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  },
-  {
-    "id": "flabob-airport-preparatory-academy",
-    "name": "Flabob Airport Preparatory Academy",
-    "address": "5580 42nd St, Riverside, CA 92509",
-    "city": "Riverside",
-    "website": "https://springscs.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  },
-  {
-    "id": "corona-norco-unified-district",
-    "name": "Corona-Norco Unified District",
-    "address": "2820 Clark Ave, Norco, CA 92860",
-    "city": "Norco",
-    "website": "https://www.cnusd.k12.ca.us",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  },
-  {
-    "id": "north-high-school",
-    "name": "North High School",
-    "address": "3620 W 182nd St, Torrance, CA 90504",
-    "city": "Torrance",
-    "website": "https://www.tusd.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  },
-  {
-    "id": "canyon-high-school",
-    "name": "Canyon High School",
-    "address": "220 S Imperial Hwy, Anaheim, CA 92807",
-    "city": "Anaheim",
-    "website": "https://www.canyonhighschool.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  },
-  {
-    "id": "san-jacinto-valley-academy",
-    "name": "San Jacinto Valley Academy",
-    "address": "480 N San Jacinto Ave, San Jacinto, CA 92583",
-    "city": "San Jacinto",
-    "website": "https://www.sjva.net",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  },
-  {
-    "id": "shadow-hills-high-school",
-    "name": "Shadow Hills High School",
-    "address": "39-225 Jefferson St, Indio, CA 92203",
-    "city": "Indio",
-    "website": "https://www.cde.ca.gov",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  },
-  {
-    "id": "irvine-high-school",
-    "name": "Irvine High School",
-    "address": "4321 Walnut Ave, Irvine, CA 92604",
-    "city": "Irvine",
-    "website": "https://www.irvinehigh.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  },
-  {
-    "id": "desert-mirage-high-school",
-    "name": "Desert Mirage High School",
-    "address": "86150 66th Ave, Thermal, CA 92274",
-    "city": "Thermal",
-    "website": "https://dmhs.cvusd.us",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  },
-  {
-    "id": "army-and-navy-academy",
-    "name": "Army and Navy Academy",
-    "address": "2605 Carlsbad Blvd, Carlsbad, CA 92008",
-    "city": "Carlsbad",
-    "website": "https://www.armyandnavyacademy.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  },
-  {
-    "id": "high-tech-high-north-county",
-    "name": "High Tech High North County",
-    "address": "1420 W San Marcos Blvd, San Marcos, CA 92078",
-    "city": "San Marcos",
-    "website": "https://www.hightechhigh.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  },
-  {
-    "id": "foothills-christian-high-school",
-    "name": "Foothills Christian High School",
-    "address": "2321 Dryden Rd, El Cajon, CA 92020",
-    "city": "El Cajon",
-    "website": "https://www.foothillsschool.net",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  },
-  {
-    "id": "rock-academy",
-    "name": "Rock Academy",
-    "address": "2277 Rosecrans St, San Diego, CA 92106",
-    "city": "San Diego",
-    "website": "https://www.therockacademy.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  },
-  {
-    "id": "e3-civic-high",
-    "name": "e3 Civic High",
-    "address": "395 Eleventh Ave 6th floor, San Diego, CA 92101",
-    "city": "San Diego",
-    "website": "https://www.e3civichigh.com",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "geocodeAddress": "395 Eleventh Ave, San Diego, CA 92101"
-  },
-  {
-    "id": "calvary-christian-academy",
-    "name": "Calvary Christian Academy",
-    "address": "1771 E Palomar St, Chula Vista, CA 91913",
-    "city": "Chula Vista",
-    "website": "https://www.ccaknights.com",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
-  }
-]
-;
-function lookup(school,index){return new Promise((resolve,reject)=>{
-  const callback='stemGeocode'+index,script=document.createElement('script');
-  const cleanup=()=>{clearTimeout(timer);script.remove();window[callback]=()=>{};};
-  const timer=setTimeout(()=>{cleanup();reject(new Error('Timed out'));},12000);
-  window[callback]=data=>{cleanup();resolve(acceptMatch(school,data.result?.addressMatches));};
-  script.onerror=()=>{cleanup();reject(new Error('Service unavailable'));};
-  const params=new URLSearchParams({address:school.geocodeAddress||school.address,benchmark:'Public_AR_Current',format:'jsonp',callback});
-  script.src='https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?'+params;
-  document.head.appendChild(script);
-});}
-function Preview(){
- const [schools,setSchools]=useState(initialSchools);
- useEffect(()=>{let cancelled=false;
-  (async()=>{
-   let cache=[];try{cache=JSON.parse(localStorage.getItem('stem-schools-preview-v1')||'[]');}catch{}
-   const located=[];let consecutiveFailures=0;
-   for(let i=0;i<initialSchools.length;i++){
-    if(cancelled)return;
-    const school=initialSchools[i];
-    document.getElementById('status').textContent='Locating school '+(i+1)+' of '+initialSchools.length+': '+school.name;
-    const saved=cache.find(s=>s.id===school.id&&s.address===school.address&&hasCoordinates(s));
-    let match=saved||null;
-    if(!match&&consecutiveFailures<3){try{match=await lookup(school,i);consecutiveFailures=0;}catch{consecutiveFailures++;}}
-    if(cancelled)return;
-    located.push({...school,...(match||{})});
-   }
-   setSchools(located);
-   const count=located.filter(hasCoordinates).length;
-   document.getElementById('status').textContent=count+' of '+located.length+' schools located.'+(count<located.length?' Unmatched schools remain in the directory.':' Hover over the pins or choose a school.');
-   try{localStorage.setItem('stem-schools-preview-v1',JSON.stringify(located));}catch{}
-   const download=document.getElementById('download');download.hidden=count===0;
-   download.onclick=()=>{const blob=new Blob([JSON.stringify(located,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='schools.geocoded.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
-  })();return()=>{cancelled=true;};
- },[]);
- return <SchoolsMap schools={schools}/>;
-}
-ReactDOM.createRoot(document.getElementById('root')).render(<Preview/>);
+ReactDOM.createRoot(document.getElementById('root')).render(<React.StrictMode><SchoolsMap/></React.StrictMode>);
+document.getElementById('status').hidden=true;
 </script></body></html>
