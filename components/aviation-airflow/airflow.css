@@ -1,0 +1,86 @@
+/* Component styles are deliberately scoped; no Tailwind or global resets. */
+.af-explorer {
+  --af-ink: #102d48;
+  --af-muted: #536c7e;
+  --af-background: #f1f7fa;
+  --af-surface: #fff;
+  --af-border: #c5d8e2;
+  --af-accent: #14738f;
+  --af-line-color: #288eb5;
+  --af-selection: #ffffff80;
+  --af-font: Arial, sans-serif;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--af-background);
+  color: var(--af-ink);
+  font-family: var(--af-font);
+  container-type: inline-size;
+}
+.af-explorer[data-theme='dark'] {
+  --af-ink: #e4eff6;
+  --af-muted: #b4c9d5;
+  --af-background: #102632;
+  --af-surface: #193746;
+  --af-border: #3b5969;
+  --af-accent: #7bd0e9;
+  --af-line-color: #7bd0e9;
+  --af-selection: #1c3b4c80;
+}
+.af-explorer, .af-explorer * { box-sizing: border-box; }
+.af-explorer .af-ambient { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+.af-explorer .af-content { padding: 34px 30px 20px; }
+.af-explorer .af-eyebrow { margin: 0; color: var(--af-muted); font: 11px/1.4 monospace; letter-spacing: 2px; }
+.af-explorer h2 { margin: 12px 0; font-size: 40px; font-weight: 600; line-height: 1.08; letter-spacing: -1.6px; color: var(--af-ink); }
+.af-explorer .af-subtitle { margin: 0; color: var(--af-muted); font-size: 13px; line-height: 1.6; }
+.af-explorer .af-layout { display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1fr); gap: 28px; margin-top: 30px; align-items: start; }
+.af-explorer .af-selection, .af-explorer .af-details { min-width: 0; }
+.af-explorer .af-choices { display: flex; flex-direction: column; }
+.af-explorer .af-choice { appearance: none; display: grid; position: relative; grid-template-columns: 25px minmax(0, 1fr) 16px; gap: 9px; align-items: center; min-height: 103px; margin: 0; border: 0; border-bottom: 1px solid var(--af-border); border-radius: 0; padding: 16px 7px; background: transparent; color: var(--af-muted); font: inherit; text-align: left; cursor: pointer; transition: color .22s, background .22s; }
+.af-explorer .af-choice:first-child { border-top: 1px solid var(--af-border); }
+.af-explorer .af-choice strong { display: block; font-size: 16px; font-weight: 600; line-height: 1.3; letter-spacing: -.3px; overflow-wrap: anywhere; }
+.af-explorer .af-category { display: block; margin-bottom: 7px; font: 11px/1.4 monospace; letter-spacing: 1.3px; text-transform: uppercase; }
+.af-explorer .af-number { font: 11px/1.4 monospace; }
+.af-explorer .af-choice-arrow { opacity: 0; transition: opacity .2s; }
+.af-explorer .af-choice[aria-pressed='true'] { color: var(--af-ink); background: var(--af-selection); }
+.af-explorer .af-choice[aria-pressed='true']::before { content: ''; position: absolute; left: 0; top: 22px; bottom: 22px; width: 3px; background: var(--af-accent); }
+.af-explorer .af-choice[aria-pressed='true'] .af-choice-arrow { opacity: 1; }
+.af-explorer .af-choice:hover { background: var(--af-selection); }
+.af-explorer :is(button, a):focus-visible { outline: 3px solid #b7800b; outline-offset: 3px; }
+.af-explorer .af-navigation-note { max-width: 240px; margin: 20px 7px 0; white-space: pre-line; color: var(--af-muted); font: 11px/1.65 monospace; letter-spacing: .3px; }
+.af-explorer .af-details { display: grid; }
+.af-explorer .af-program { grid-area: 1 / 1; display: flex; flex-direction: column; min-width: 0; visibility: hidden; pointer-events: none; opacity: 0; transition: opacity .3s; }
+.af-explorer .af-program-active { visibility: visible; pointer-events: auto; opacity: 1; }
+.af-explorer .af-photo { position: relative; flex-shrink: 0; height: 205px; margin: 0 0 20px; overflow: hidden; border-radius: 5px; background: var(--af-surface); }
+.af-explorer .af-photo img { display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+.af-explorer .af-photo::after { content: ''; position: absolute; inset: 45% 0 0; background: linear-gradient(transparent, #062034b0); pointer-events: none; }
+.af-explorer .af-photo figcaption { position: absolute; left: 14px; right: 14px; bottom: 12px; z-index: 1; color: #fff; font: 11px/1.4 monospace; letter-spacing: 1.3px; }
+.af-explorer .af-photo-fallback { display: grid; place-items: center; width: 100%; height: 100%; color: var(--af-muted); background: var(--af-surface); font-size: 14px; }
+.af-explorer .af-audience { margin: 0; font: 11px/1.5 monospace; text-transform: uppercase; letter-spacing: 1.3px; color: var(--af-accent); }
+.af-explorer h3 { min-height: 56px; margin: 9px 0 12px; color: var(--af-ink); font-size: 24px; font-weight: 600; letter-spacing: -.6px; line-height: 1.15; white-space: pre-line; overflow-wrap: anywhere; }
+.af-explorer .af-description { flex: 1; margin: 0 0 20px; color: var(--af-muted); font-size: 13px; line-height: 1.75; overflow-wrap: anywhere; }
+.af-explorer .af-cta { display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 46px; width: 100%; padding: 14px 16px; border: 0; border-radius: 3px; background: var(--af-ink); color: var(--af-background); font: 12px/1.4 var(--af-font); text-decoration: none; }
+.af-explorer .af-cta:hover { opacity: .88; }
+.af-explorer .af-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 28px; padding-top: 17px; border-top: 1px solid var(--af-border); color: var(--af-muted); font: 11px/1.5 monospace; }
+.af-explorer .af-schools { color: var(--af-ink); text-decoration: underline; text-underline-offset: 4px; }
+.af-explorer .af-motion { min-height: 44px; flex-shrink: 0; padding: 9px 11px; border: 1px solid var(--af-border); border-radius: 4px; background: var(--af-surface); color: var(--af-ink); font: 11px/1.4 var(--af-font); cursor: pointer; }
+.af-explorer .af-motion:disabled { cursor: default; color: var(--af-muted); }
+.af-explorer .af-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+/* Container queries also handle narrow placements inside a wide desktop page. */
+@container (max-width: 580px) {
+  .af-explorer .af-content { padding: 27px 20px 20px; }
+  .af-explorer h2 { font-size: 30px; }
+  .af-explorer .af-layout { grid-template-columns: minmax(0, 1fr); gap: 22px; margin-top: 23px; }
+  .af-explorer .af-choice { min-height: 76px; padding: 12px 8px; grid-template-columns: 27px minmax(0, 1fr) 16px; }
+  .af-explorer .af-choice strong { font-size: 15px; }
+  .af-explorer .af-category { margin-bottom: 4px; }
+  .af-explorer .af-navigation-note { display: none; }
+  .af-explorer .af-photo { height: 210px; }
+  .af-explorer .af-footer { margin-top: 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .af-explorer *, .af-explorer *::before, .af-explorer *::after { transition: none !important; animation: none !important; }
+}

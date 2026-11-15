@@ -9,6 +9,7 @@ Reusable UI components, animations, and integrations by DGX Enterprise AI.
 | Aviation airport map | React + Leaflet + OpenStreetMap | [Source, preview, and Lovable instructions](components/aviation-airport-map/README.md) |
 
 | STEM aviation schools map | React + Leaflet + OpenStreetMap | [Source and Lovable integration instructions](components/stem-schools-map/README.md) |
+| Aviation Airflow program explorer | React + TypeScript + Canvas | [Source and Lovable integration instructions](components/aviation-airflow/README.md) |
 
 ## Using components in Lovable
 
