@@ -1,8 +1,22 @@
 {
-  "name":"dgx-stem-schools-map",
-  "private":true,
-  "type":"module",
-  "scripts":{"test":"node --test schools-map.test.mjs","geocode":"node geocode-schools.mjs"},
-  "peerDependencies":{"react":">=18","react-dom":">=18"},
-  "dependencies":{"leaflet":"1.9.4","leaflet.markercluster":"1.5.3"}
+  "name": "dgx-stem-schools-map",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test schools-map.test.mjs",
+    "geocode": "node geocode-schools.mjs",
+    "preview": "node build-preview.mjs"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "dependencies": {
+    "leaflet": "1.9.4",
+    "leaflet.markercluster": "1.5.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.9",
+    "@babel/plugin-transform-react-jsx": "^7.25.9"
+  }
 }
