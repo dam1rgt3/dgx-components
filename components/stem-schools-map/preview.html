@@ -1,373 +1,637 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="strict-origin-when-cross-origin"><title>STEM Schools Map Preview</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
-<style>body{margin:0;padding:32px;background:#f4f2ed;color:#18364b;font-family:Arial,sans-serif}main{max-width:1320px;margin:auto}h1{font-size:32px;font-weight:500;margin:0 0 12px}header p{line-height:1.6;max-width:850px;margin-bottom:26px}#status{min-height:24px;font-size:14px}button{font:inherit}@media(max-width:600px){body{padding:16px}h1{font-size:26px}}.stem-schools-map{--ssm-navy:#18364b;--ssm-blue:#236583;--ssm-paper:#fffdf9;display:grid;grid-template-columns:320px minmax(0,1fr);height:660px;min-height:480px;background:var(--ssm-paper);border:1px solid #d9e0df;border-radius:8px;overflow:hidden;isolation:isolate;font-family:Arial,Helvetica,sans-serif;color:var(--ssm-navy);box-shadow:0 18px 50px -35px #18364b55}.stem-schools-map *{box-sizing:border-box}.stem-schools-map button,.stem-schools-map input{font:inherit}.stem-schools-map button{cursor:pointer}.stem-schools-map button:focus-visible,.stem-schools-map input:focus-visible,.stem-schools-map a:focus-visible,.stem-schools-map .leaflet-marker-icon:focus-visible{outline:3px solid #b08034;outline-offset:3px}.ssm-directory{display:flex;flex-direction:column;min-height:0;border-right:1px solid #d9e0df;background:var(--ssm-paper);z-index:2}.ssm-search{padding:26px 22px 14px}.ssm-search label{display:block;font-size:23px;font-weight:500;letter-spacing:-.6px;margin-bottom:18px}.ssm-search-input{position:relative}.ssm-search input{width:100%;border:1px solid #c9d5d8;border-radius:3px;padding:12px 30px 12px 12px;background:#fff;color:var(--ssm-navy);font-size:13px}.ssm-search input::-webkit-search-cancel-button{display:none}.ssm-search-input button{position:absolute;right:2px;top:2px;bottom:2px;width:32px;border:0;background:none;color:#4d6674;font-size:22px}.ssm-search p{font-size:12px;color:#60727b;margin:14px 0 0}.ssm-results{list-style:none;padding:0 12px;margin:0;overflow-y:auto;overscroll-behavior:contain;flex:1;scrollbar-width:thin;scrollbar-color:#bccbcf transparent}.ssm-results li{margin:0}.ssm-school{width:100%;display:flex;gap:12px;align-items:flex-start;text-align:left;padding:17px 10px;border:0;border-bottom:1px solid #e4e8e4;background:none;color:var(--ssm-navy);transition:background .15s}.ssm-school:hover,.ssm-school[aria-pressed=true]{background:#eaf1f2}.ssm-school strong{font-size:14px;line-height:1.4;font-weight:600;display:block}.ssm-school span span{display:block;font-size:12px;color:#60727b;margin-top:5px;line-height:1.5}.ssm-school small{display:block;color:#7a653e;font-size:11px;margin-top:6px}.ssm-school-dot{width:6px;height:6px;flex:0 0 6px;border-radius:50%;background:#82a2ae;margin-top:7px}.ssm-school[aria-pressed=true] .ssm-school-dot{background:#af7d31;box-shadow:0 0 0 4px #af7d3118}.ssm-school-arrow{margin-left:auto;color:#71919b}.ssm-hint{padding:18px 22px;font-size:11px;color:#647780;border-top:1px solid #e1e7e4}.ssm-empty,.ssm-pending{padding:16px 22px;font-size:13px;line-height:1.6}.ssm-pending{border-top:1px solid #d9e0df}.ssm-pending a{color:#236583}.ssm-map-wrap{position:relative;min-width:0;min-height:0}.ssm-map{position:absolute;inset:0;background:#dfe8e7;z-index:0}.ssm-map .leaflet-tile-pane{filter:saturate(.5)}.ssm-overview{position:absolute;z-index:600;top:20px;right:20px;border:1px solid #cad8d8;border-radius:3px;padding:11px 16px;background:#fffdf9f5;color:#18364b;box-shadow:0 3px 14px #18364b12;font-size:12px!important}.ssm-overview:disabled{opacity:.5;cursor:default}.ssm-marker{background:none;border:0}.ssm-marker>span{display:grid;place-items:center;width:34px;height:34px;background:#236583;color:white;border:2px solid #fffdf9;border-radius:50%;box-shadow:0 3px 12px #18364b40;transition:transform .15s}.ssm-marker svg{width:22px;height:22px}.ssm-marker:hover>span,.ssm-marker.is-selected>span{background:#18364b;transform:scale(1.13);box-shadow:0 0 0 3px #b0803455,0 3px 12px #18364b40}.ssm-cluster{background:#23658320;border:1px solid #23658330;border-radius:50%;padding:5px}.ssm-cluster span{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#18364b;color:white;font-size:13px;font-weight:600}.ssm-tooltip{background:#fffdf9;color:#18364b;border:1px solid #cdd9d9;border-radius:3px;padding:9px 12px;font-size:13px;box-shadow:0 5px 18px #18364b20;white-space:normal;max-width:260px;line-height:1.4}.ssm-popup strong{font-size:16px;line-height:1.4;color:#18364b;display:block}.ssm-popup p{font-size:13px;line-height:1.6;color:#536c7a;margin:10px 0!important}.ssm-popup-links{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px}.ssm-popup a{color:#236583!important;font-size:12px;font-weight:600}.ssm-school-popup .leaflet-popup-content-wrapper{border-radius:5px;background:#fffdf9}.ssm-school-popup .leaflet-popup-content{margin:20px}.ssm-map-error{position:absolute;bottom:34px;left:16px;right:16px;z-index:600;background:#fffdf9;border:1px solid #d9e0df;padding:13px;font-size:12px;line-height:1.5}.ssm-map .leaflet-control-attribution{font-size:10px;background:#fffdf9ed}.ssm-map .leaflet-control-zoom{border:1px solid #cdd9d9;box-shadow:none}.ssm-map .leaflet-control-zoom a{color:#18364b;background:#fffdf9}.ssm-map .leaflet-control-zoom{margin-right:20px;margin-bottom:25px}
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="strict-origin-when-cross-origin"><title>STEM Schools Map Preview</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+<style>body{margin:0;padding:32px;background:#f4f2ed;color:#18364b;font-family:Arial,sans-serif}main{max-width:1320px;margin:auto}h1{font-size:32px;font-weight:500;margin:0 0 12px}header p{line-height:1.6;margin-bottom:26px}#status{font-size:14px;padding:14px 0}@media(max-width:600px){body{padding:16px}h1{font-size:26px}}.stem-schools-map{--ssm-navy:#18364b;--ssm-blue:#236583;--ssm-paper:#fffdf9;display:grid;grid-template-columns:320px minmax(0,1fr);height:660px;min-height:480px;background:var(--ssm-paper);border:1px solid #d9e0df;border-radius:8px;overflow:hidden;isolation:isolate;font-family:Arial,Helvetica,sans-serif;color:var(--ssm-navy);box-shadow:0 18px 50px -35px #18364b55}.stem-schools-map *{box-sizing:border-box}.stem-schools-map button,.stem-schools-map input{font:inherit}.stem-schools-map button{cursor:pointer}.stem-schools-map button:focus-visible,.stem-schools-map input:focus-visible,.stem-schools-map a:focus-visible,.stem-schools-map .leaflet-marker-icon:focus-visible{outline:3px solid #b08034;outline-offset:3px}.ssm-directory{display:flex;flex-direction:column;min-height:0;border-right:1px solid #d9e0df;background:var(--ssm-paper);z-index:2}.ssm-search{padding:26px 22px 14px}.ssm-search label{display:block;font-size:23px;font-weight:500;letter-spacing:-.6px;margin-bottom:18px}.ssm-search-input{position:relative}.ssm-search input{width:100%;border:1px solid #c9d5d8;border-radius:3px;padding:12px 30px 12px 12px;background:#fff;color:var(--ssm-navy);font-size:13px}.ssm-search input::-webkit-search-cancel-button{display:none}.ssm-search-input button{position:absolute;right:2px;top:2px;bottom:2px;width:32px;border:0;background:none;color:#4d6674;font-size:22px}.ssm-search p{font-size:12px;color:#60727b;margin:14px 0 0}.ssm-results{list-style:none;padding:0 12px;margin:0;overflow-y:auto;overscroll-behavior:contain;flex:1;scrollbar-width:thin;scrollbar-color:#bccbcf transparent}.ssm-results li{margin:0}.ssm-school{width:100%;display:flex;gap:12px;align-items:flex-start;text-align:left;padding:17px 10px;border:0;border-bottom:1px solid #e4e8e4;background:none;color:var(--ssm-navy);transition:background .15s}.ssm-school:hover,.ssm-school[aria-pressed=true]{background:#eaf1f2}.ssm-school strong{font-size:14px;line-height:1.4;font-weight:600;display:block}.ssm-school span span{display:block;font-size:12px;color:#60727b;margin-top:5px;line-height:1.5}.ssm-school small{display:block;color:#7a653e;font-size:11px;margin-top:6px}.ssm-school-dot{width:6px;height:6px;flex:0 0 6px;border-radius:50%;background:#82a2ae;margin-top:7px}.ssm-school[aria-pressed=true] .ssm-school-dot{background:#af7d31;box-shadow:0 0 0 4px #af7d3118}.ssm-school-arrow{margin-left:auto;color:#71919b}.ssm-hint{padding:18px 22px;font-size:11px;color:#647780;border-top:1px solid #e1e7e4}.ssm-empty,.ssm-pending{padding:16px 22px;font-size:13px;line-height:1.6}.ssm-pending{border-top:1px solid #d9e0df}.ssm-pending a{color:#236583}.ssm-map-wrap{position:relative;min-width:0;min-height:0}.ssm-map{position:absolute;inset:0;background:#dfe8e7;z-index:0}.ssm-map .leaflet-tile-pane{filter:saturate(.5)}.ssm-overview{position:absolute;z-index:600;top:20px;right:20px;border:1px solid #cad8d8;border-radius:3px;padding:11px 16px;background:#fffdf9f5;color:#18364b;box-shadow:0 3px 14px #18364b12;font-size:12px!important}.ssm-overview:disabled{opacity:.5;cursor:default}.ssm-marker{background:none;border:0}.ssm-marker>span{display:grid;place-items:center;width:34px;height:34px;background:#236583;color:white;border:2px solid #fffdf9;border-radius:50%;box-shadow:0 3px 12px #18364b40;transition:transform .15s}.ssm-marker svg{width:22px;height:22px}.ssm-marker:hover>span,.ssm-marker.is-selected>span{background:#18364b;transform:scale(1.13);box-shadow:0 0 0 3px #b0803455,0 3px 12px #18364b40}.ssm-cluster{background:#23658320;border:1px solid #23658330;border-radius:50%;padding:5px}.ssm-cluster span{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#18364b;color:white;font-size:13px;font-weight:600}.ssm-tooltip{background:#fffdf9;color:#18364b;border:1px solid #cdd9d9;border-radius:3px;padding:9px 12px;font-size:13px;box-shadow:0 5px 18px #18364b20;white-space:normal;max-width:260px;line-height:1.4}.ssm-popup strong{font-size:16px;line-height:1.4;color:#18364b;display:block}.ssm-popup p{font-size:13px;line-height:1.6;color:#536c7a;margin:10px 0!important}.ssm-popup-links{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px}.ssm-popup a{color:#236583!important;font-size:12px;font-weight:600}.ssm-school-popup .leaflet-popup-content-wrapper{border-radius:5px;background:#fffdf9}.ssm-school-popup .leaflet-popup-content{margin:20px}.ssm-map-error{position:absolute;bottom:34px;left:16px;right:16px;z-index:600;background:#fffdf9;border:1px solid #d9e0df;padding:13px;font-size:12px;line-height:1.5}.ssm-map .leaflet-control-attribution{font-size:10px;background:#fffdf9ed}.ssm-map .leaflet-control-zoom{border:1px solid #cdd9d9;box-shadow:none}.ssm-map .leaflet-control-zoom a{color:#18364b;background:#fffdf9}.ssm-map .leaflet-control-zoom{margin-right:20px;margin-bottom:25px}
 @media(max-width:760px){.stem-schools-map{height:auto;grid-template-columns:1fr}.ssm-map-wrap{grid-row:1;height:440px}.ssm-directory{border-right:0;border-top:1px solid #d9e0df}.ssm-search{padding:22px 20px 12px}.ssm-search label{font-size:21px;margin-bottom:12px}.ssm-results{max-height:300px;flex:auto}.ssm-overview{top:12px;right:12px}.ssm-hint{padding:14px 20px}}
 @media(prefers-reduced-motion:reduce){.ssm-marker>span,.ssm-school{transition:none}}
 </style></head>
 <body><main><header><h1>Schools with STEM aviation</h1><p>Explore 19 participating schools. Hover over a marker for its name, or select a school for its address and directions.</p></header><div id="status" role="status">Loading the map...</div><div id="root"></div></main>
-<script>window.addEventListener('error',function(e){document.getElementById('status').textContent='The preview could not load. Please refresh or open preview.html in a browser with internet access.';});</script>
-<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-<script src="https://unpkg.com/@babel/standalone@7.26.9/babel.min.js"></script>
-<script type="text/babel" data-presets="react">
-const {useEffect,useId,useMemo,useRef,useState}=React;
-const defaultSchools=[
-  {
-    "id": "big-bear-high-school",
-    "name": "Big Bear High School",
-    "address": "351 Maple Ln, Big Bear Lake, CA 92315",
-    "city": "Big Bear Lake",
-    "website": "https://bbhs.bearvalleyusd.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 34.25385,
-    "lng": -116.82549,
-    "phone": "+1 909-585-6892",
-    "coordinateSource": "https://mapcarta.com/23001998",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
-  },
-  {
-    "id": "stem3-academy",
-    "name": "STEM3 Academy",
-    "address": "6455 Coldwater Canyon Ave, Valley Glen, CA 91606",
-    "city": "Valley Glen",
-    "website": "https://www.stem3academy.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 34.188287,
-    "lng": -118.414051,
-    "phone": "+1 818-623-6386",
-    "coordinateSource": "https://sanfernando.kidsoutandabout.com/content/summit-view-valley-school",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
-  },
-  {
-    "id": "career-education-center",
-    "name": "Career Education Center",
-    "address": "465 Horizon Cir, Camarillo, CA 93010",
-    "city": "Camarillo",
-    "website": "https://www.vcoe.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 34.207577,
-    "lng": -119.075186,
-    "phone": "+1 805-437-1420",
-    "coordinateSource": "https://www.mapmybizz.com/place/career-education-center-camarillo/",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
-  },
-  {
-    "id": "a-b-miller-high-school",
-    "name": "A.B. Miller High School",
-    "address": "6821 Oleander Ave, Fontana, CA 92336",
-    "city": "Fontana",
-    "website": "https://www.fusd.net",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 34.12946,
-    "lng": -117.4481,
-    "phone": "+1 909-357-5800",
-    "coordinateSource": "https://mapcarta.com/22989982",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
-  },
-  {
-    "id": "school-of-extended-educational-options",
-    "name": "School of Extended Educational Options",
-    "address": "1444 E Holt Ave, Pomona, CA 91767",
-    "city": "Pomona",
-    "website": "https://seeo.pusd.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 34.061776,
-    "lng": -117.722583,
-    "phone": "+1 909-397-4900",
-    "coordinateSource": "https://www.pomonaca.gov/home/showpublisheddocument/200/637455477592800000",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance",
-    "locationNote": "Pin follows the supplied 1444 E Holt Ave address. CDE now lists 2211 North Orange Grove Ave; confirm before changing this listing."
-  },
-  {
-    "id": "flabob-airport-preparatory-academy",
-    "name": "Flabob Airport Preparatory Academy",
-    "address": "5580 42nd St, Riverside, CA 92509",
-    "city": "Riverside",
-    "website": "https://springscs.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 33.9920325,
-    "lng": -117.4095074,
-    "phone": "+1 951-225-7100",
-    "coordinateSource": "https://maps.app.goo.gl/3iBdjmWDfZerhRyy5",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
-  },
-  {
-    "id": "corona-norco-unified-district",
-    "name": "Corona-Norco Unified District",
-    "address": "2820 Clark Ave, Norco, CA 92860",
-    "city": "Norco",
-    "website": "https://www.cnusd.k12.ca.us",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 33.92222,
-    "lng": -117.56083,
-    "phone": "+1 951-736-5000",
-    "coordinateSource": "https://en.wikipedia.org/wiki/Corona-Norco_Unified_School_District",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
-  },
-  {
-    "id": "north-high-school",
-    "name": "North High School",
-    "address": "3620 W 182nd St, Torrance, CA 90504",
-    "city": "Torrance",
-    "website": "https://www.tusd.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 33.8639,
-    "lng": -118.3364,
-    "phone": "+1 310-533-4412",
-    "coordinateSource": "https://schoolfinderusa.com/california/torrance-unified-0639420/north-high-063942006568",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
-  },
-  {
-    "id": "canyon-high-school",
-    "name": "Canyon High School",
-    "address": "220 S Imperial Hwy, Anaheim, CA 92807",
-    "city": "Anaheim",
-    "website": "https://www.canyonhighschool.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 33.847994,
-    "lng": -117.788505,
-    "phone": "+1 714-532-8000",
-    "coordinateSource": "https://ciwqs.waterboards.ca.gov/ciwqs/readOnly/CiwqsReportServlet?newPageNumber=4065&reportID=6588758",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
-  },
-  {
-    "id": "san-jacinto-valley-academy",
-    "name": "San Jacinto Valley Academy",
-    "address": "480 N San Jacinto Ave, San Jacinto, CA 92583",
-    "city": "San Jacinto",
-    "website": "https://www.sjva.net",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 33.794137,
-    "lng": -116.960404,
-    "phone": "+1 951-654-6113",
-    "coordinateSource": "https://www.infoschools.net/usa/san-jacinto/san-jacinto-valley-academy-san-jacinto-ca",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
-  },
-  {
-    "id": "shadow-hills-high-school",
-    "name": "Shadow Hills High School",
-    "address": "39-225 Jefferson St, Indio, CA 92203",
-    "city": "Indio",
-    "website": "https://www.cde.ca.gov",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 33.76450852,
-    "lng": -116.2703969,
-    "phone": "+1 760-393-5400",
-    "coordinateSource": "https://rccd.asian.gg/map/?id=7",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
-  },
-  {
-    "id": "irvine-high-school",
-    "name": "Irvine High School",
-    "address": "4321 Walnut Ave, Irvine, CA 92604",
-    "city": "Irvine",
-    "website": "https://www.irvinehigh.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 33.70236,
-    "lng": -117.77972,
-    "phone": "+1 949-936-7000",
-    "coordinateSource": "https://ochealthinfo.com/sites/healthcare/files/2023-02/Food%20web%20020623_1.pdf",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
-  },
-  {
-    "id": "desert-mirage-high-school",
-    "name": "Desert Mirage High School",
-    "address": "86150 66th Ave, Thermal, CA 92274",
-    "city": "Thermal",
-    "website": "https://dmhs.cvusd.us",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 33.571858,
-    "lng": -116.161326,
-    "phone": "+1 760-397-2255",
-    "coordinateSource": "https://www.infoschools.net/usa/thermal/desert-mirage-high-thermal-ca",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
-  },
-  {
-    "id": "army-and-navy-academy",
-    "name": "Army and Navy Academy",
-    "address": "2605 Carlsbad Blvd, Carlsbad, CA 92008",
-    "city": "Carlsbad",
-    "website": "https://www.armyandnavyacademy.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 33.16313,
-    "lng": -117.35464,
-    "phone": "+1 888-762-2338",
-    "coordinateSource": "https://mapcarta.com/22995054",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
-  },
-  {
-    "id": "high-tech-high-north-county",
-    "name": "High Tech High North County",
-    "address": "1420 W San Marcos Blvd, San Marcos, CA 92078",
-    "city": "San Marcos",
-    "website": "https://www.hightechhigh.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 33.132371,
-    "lng": -117.202227,
-    "phone": "+1 760-759-2700",
-    "coordinateSource": "https://www.infoschools.net/usa/san-marcos/high-tech-high-north-county-san-marcos-ca",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
-  },
-  {
-    "id": "foothills-christian-high-school",
-    "name": "Foothills Christian High School",
-    "address": "2321 Dryden Rd, El Cajon, CA 92020",
-    "city": "El Cajon",
-    "website": "https://www.foothillsschool.net",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 32.79847,
-    "lng": -116.99592,
-    "phone": "+1 619-303-8035",
-    "coordinateSource": "https://churcheslist.com/grace-baptist-church-280",
-    "coordinateAccuracy": "Approximate published coordinate for the supplied street address"
-  },
-  {
-    "id": "rock-academy",
-    "name": "Rock Academy",
-    "address": "2277 Rosecrans St, San Diego, CA 92106",
-    "city": "San Diego",
-    "website": "https://www.therockacademy.org",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 32.7359,
-    "lng": -117.2187,
-    "phone": "+1 619-764-5200",
-    "coordinateSource": "https://en.wikipedia.org/wiki/Rock_Academy",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
-  },
-  {
-    "id": "e3-civic-high",
-    "name": "e3 Civic High",
-    "address": "395 Eleventh Ave 6th floor, San Diego, CA 92101",
-    "city": "San Diego",
-    "website": "https://www.e3civichigh.com",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "geocodeAddress": "395 Eleventh Ave, San Diego, CA 92101",
-    "lat": 32.70917,
-    "lng": -117.15448,
-    "phone": "+1 619-546-0000",
-    "coordinateSource": "https://mapcarta.com/N5732708129",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
-  },
-  {
-    "id": "calvary-christian-academy",
-    "name": "Calvary Christian Academy",
-    "address": "1771 E Palomar St, Chula Vista, CA 91913",
-    "city": "Chula Vista",
-    "website": "https://www.ccaknights.com",
-    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
-    "lat": 32.63239,
-    "lng": -116.9839,
-    "phone": "+1 619-591-2260",
-    "coordinateSource": "https://usa.worldplaces.me/private-schools-in-chula-vista/44675512-calvary-christian-academy-royal-knights.html",
-    "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
-  }
-]
-;
-const hasCoordinates=s=>typeof s.lat==='number'&&typeof s.lng==='number'&&Number.isFinite(s.lat)&&Number.isFinite(s.lng)&&s.lat>=-90&&s.lat<=90&&s.lng>=-180&&s.lng<=180;
-function safeWebsite(value){try{const u=new URL(value);return ['https:','http:'].includes(u.protocol)?u.href:null;}catch{return null;}}
-function normalizeSchools(input){
-  if(!Array.isArray(input))return [];
-  const seen=new Set();
-  return input.filter(s=>s&&typeof s.name==='string'&&s.name.trim()&&typeof s.address==='string').map(s=>({...s,name:s.name.trim(),address:s.address.trim(),id:String(s.id||`${s.name}|${s.address}`)})).filter(s=>{if(seen.has(s.id))return false;seen.add(s.id);return true;});
+<script>
+function showError(message){const status=document.getElementById('status');status.hidden=false;status.textContent='Preview error: '+message;}
+window.addEventListener('error',e=>showError(e.message||'A preview resource failed to load.'));
+async function loadLibrary(path){
+ for(const base of ['https://cdn.jsdelivr.net/npm/','https://unpkg.com/']){
+  try{await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=base+path;s.onload=resolve;s.onerror=()=>{s.remove();reject(new Error('Failed to load '+path));};document.head.appendChild(s);});return;}catch{}
+ }
+ throw new Error('Could not load '+path+' from either CDN.');
 }
-function filterSchools(schools,query){const q=String(query||'').trim().toLocaleLowerCase();return schools.filter(s=>[s.name,s.city,s.address,s.zip].filter(Boolean).join(' ').toLocaleLowerCase().includes(q));}
+(async()=>{
+ try{
+ await loadLibrary('react@18.3.1/umd/react.production.min.js');
+ await loadLibrary('react-dom@18.3.1/umd/react-dom.production.min.js');
+ await loadLibrary('leaflet@1.9.4/dist/leaflet.js');
+ await loadLibrary('leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js');
+ const previewJSXRuntime={jsx:(type,props,key)=>React.createElement(type,{...props,key}),jsxs:(type,props,key)=>React.createElement(type,{...props,key}),Fragment:React.Fragment};
+ "use strict";
 
+var _jsxRuntime = previewJSXRuntime;
+const {
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState
+} = React;
+const defaultSchools = [{
+  "id": "big-bear-high-school",
+  "name": "Big Bear High School",
+  "address": "351 Maple Ln, Big Bear Lake, CA 92315",
+  "city": "Big Bear Lake",
+  "website": "https://bbhs.bearvalleyusd.org",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 34.25385,
+  "lng": -116.82549,
+  "phone": "+1 909-585-6892",
+  "coordinateSource": "https://mapcarta.com/23001998",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+}, {
+  "id": "stem3-academy",
+  "name": "STEM3 Academy",
+  "address": "6455 Coldwater Canyon Ave, Valley Glen, CA 91606",
+  "city": "Valley Glen",
+  "website": "https://www.stem3academy.org",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 34.188287,
+  "lng": -118.414051,
+  "phone": "+1 818-623-6386",
+  "coordinateSource": "https://sanfernando.kidsoutandabout.com/content/summit-view-valley-school",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+}, {
+  "id": "career-education-center",
+  "name": "Career Education Center",
+  "address": "465 Horizon Cir, Camarillo, CA 93010",
+  "city": "Camarillo",
+  "website": "https://www.vcoe.org",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 34.207577,
+  "lng": -119.075186,
+  "phone": "+1 805-437-1420",
+  "coordinateSource": "https://www.mapmybizz.com/place/career-education-center-camarillo/",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+}, {
+  "id": "a-b-miller-high-school",
+  "name": "A.B. Miller High School",
+  "address": "6821 Oleander Ave, Fontana, CA 92336",
+  "city": "Fontana",
+  "website": "https://www.fusd.net",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 34.12946,
+  "lng": -117.4481,
+  "phone": "+1 909-357-5800",
+  "coordinateSource": "https://mapcarta.com/22989982",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+}, {
+  "id": "school-of-extended-educational-options",
+  "name": "School of Extended Educational Options",
+  "address": "1444 E Holt Ave, Pomona, CA 91767",
+  "city": "Pomona",
+  "website": "https://seeo.pusd.org",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 34.061776,
+  "lng": -117.722583,
+  "phone": "+1 909-397-4900",
+  "coordinateSource": "https://www.pomonaca.gov/home/showpublisheddocument/200/637455477592800000",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance",
+  "locationNote": "Pin follows the supplied 1444 E Holt Ave address. CDE now lists 2211 North Orange Grove Ave; confirm before changing this listing."
+}, {
+  "id": "flabob-airport-preparatory-academy",
+  "name": "Flabob Airport Preparatory Academy",
+  "address": "5580 42nd St, Riverside, CA 92509",
+  "city": "Riverside",
+  "website": "https://springscs.org",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 33.9920325,
+  "lng": -117.4095074,
+  "phone": "+1 951-225-7100",
+  "coordinateSource": "https://maps.app.goo.gl/3iBdjmWDfZerhRyy5",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+}, {
+  "id": "corona-norco-unified-district",
+  "name": "Corona-Norco Unified District",
+  "address": "2820 Clark Ave, Norco, CA 92860",
+  "city": "Norco",
+  "website": "https://www.cnusd.k12.ca.us",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 33.92222,
+  "lng": -117.56083,
+  "phone": "+1 951-736-5000",
+  "coordinateSource": "https://en.wikipedia.org/wiki/Corona-Norco_Unified_School_District",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+}, {
+  "id": "north-high-school",
+  "name": "North High School",
+  "address": "3620 W 182nd St, Torrance, CA 90504",
+  "city": "Torrance",
+  "website": "https://www.tusd.org",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 33.8639,
+  "lng": -118.3364,
+  "phone": "+1 310-533-4412",
+  "coordinateSource": "https://schoolfinderusa.com/california/torrance-unified-0639420/north-high-063942006568",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+}, {
+  "id": "canyon-high-school",
+  "name": "Canyon High School",
+  "address": "220 S Imperial Hwy, Anaheim, CA 92807",
+  "city": "Anaheim",
+  "website": "https://www.canyonhighschool.org",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 33.847994,
+  "lng": -117.788505,
+  "phone": "+1 714-532-8000",
+  "coordinateSource": "https://ciwqs.waterboards.ca.gov/ciwqs/readOnly/CiwqsReportServlet?newPageNumber=4065&reportID=6588758",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+}, {
+  "id": "san-jacinto-valley-academy",
+  "name": "San Jacinto Valley Academy",
+  "address": "480 N San Jacinto Ave, San Jacinto, CA 92583",
+  "city": "San Jacinto",
+  "website": "https://www.sjva.net",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 33.794137,
+  "lng": -116.960404,
+  "phone": "+1 951-654-6113",
+  "coordinateSource": "https://www.infoschools.net/usa/san-jacinto/san-jacinto-valley-academy-san-jacinto-ca",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+}, {
+  "id": "shadow-hills-high-school",
+  "name": "Shadow Hills High School",
+  "address": "39-225 Jefferson St, Indio, CA 92203",
+  "city": "Indio",
+  "website": "https://www.cde.ca.gov",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 33.76450852,
+  "lng": -116.2703969,
+  "phone": "+1 760-393-5400",
+  "coordinateSource": "https://rccd.asian.gg/map/?id=7",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+}, {
+  "id": "irvine-high-school",
+  "name": "Irvine High School",
+  "address": "4321 Walnut Ave, Irvine, CA 92604",
+  "city": "Irvine",
+  "website": "https://www.irvinehigh.org",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 33.70236,
+  "lng": -117.77972,
+  "phone": "+1 949-936-7000",
+  "coordinateSource": "https://ochealthinfo.com/sites/healthcare/files/2023-02/Food%20web%20020623_1.pdf",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+}, {
+  "id": "desert-mirage-high-school",
+  "name": "Desert Mirage High School",
+  "address": "86150 66th Ave, Thermal, CA 92274",
+  "city": "Thermal",
+  "website": "https://dmhs.cvusd.us",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 33.571858,
+  "lng": -116.161326,
+  "phone": "+1 760-397-2255",
+  "coordinateSource": "https://www.infoschools.net/usa/thermal/desert-mirage-high-thermal-ca",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+}, {
+  "id": "army-and-navy-academy",
+  "name": "Army and Navy Academy",
+  "address": "2605 Carlsbad Blvd, Carlsbad, CA 92008",
+  "city": "Carlsbad",
+  "website": "https://www.armyandnavyacademy.org",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 33.16313,
+  "lng": -117.35464,
+  "phone": "+1 888-762-2338",
+  "coordinateSource": "https://mapcarta.com/22995054",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+}, {
+  "id": "high-tech-high-north-county",
+  "name": "High Tech High North County",
+  "address": "1420 W San Marcos Blvd, San Marcos, CA 92078",
+  "city": "San Marcos",
+  "website": "https://www.hightechhigh.org",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 33.132371,
+  "lng": -117.202227,
+  "phone": "+1 760-759-2700",
+  "coordinateSource": "https://www.infoschools.net/usa/san-marcos/high-tech-high-north-county-san-marcos-ca",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+}, {
+  "id": "foothills-christian-high-school",
+  "name": "Foothills Christian High School",
+  "address": "2321 Dryden Rd, El Cajon, CA 92020",
+  "city": "El Cajon",
+  "website": "https://www.foothillsschool.net",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 32.79847,
+  "lng": -116.99592,
+  "phone": "+1 619-303-8035",
+  "coordinateSource": "https://churcheslist.com/grace-baptist-church-280",
+  "coordinateAccuracy": "Approximate published coordinate for the supplied street address"
+}, {
+  "id": "rock-academy",
+  "name": "Rock Academy",
+  "address": "2277 Rosecrans St, San Diego, CA 92106",
+  "city": "San Diego",
+  "website": "https://www.therockacademy.org",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 32.7359,
+  "lng": -117.2187,
+  "phone": "+1 619-764-5200",
+  "coordinateSource": "https://en.wikipedia.org/wiki/Rock_Academy",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+}, {
+  "id": "e3-civic-high",
+  "name": "e3 Civic High",
+  "address": "395 Eleventh Ave 6th floor, San Diego, CA 92101",
+  "city": "San Diego",
+  "website": "https://www.e3civichigh.com",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "geocodeAddress": "395 Eleventh Ave, San Diego, CA 92101",
+  "lat": 32.70917,
+  "lng": -117.15448,
+  "phone": "+1 619-546-0000",
+  "coordinateSource": "https://mapcarta.com/N5732708129",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+}, {
+  "id": "calvary-christian-academy",
+  "name": "Calvary Christian Academy",
+  "address": "1771 E Palomar St, Chula Vista, CA 91913",
+  "city": "Chula Vista",
+  "website": "https://www.ccaknights.com",
+  "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+  "lat": 32.63239,
+  "lng": -116.9839,
+  "phone": "+1 619-591-2260",
+  "coordinateSource": "https://usa.worldplaces.me/private-schools-in-chula-vista/44675512-calvary-christian-academy-royal-knights.html",
+  "coordinateAccuracy": "Campus/address location; not a surveyed entrance"
+}];
+const hasCoordinates = s => typeof s.lat === 'number' && typeof s.lng === 'number' && Number.isFinite(s.lat) && Number.isFinite(s.lng) && s.lat >= -90 && s.lat <= 90 && s.lng >= -180 && s.lng <= 180;
+function safeWebsite(value) {
+  try {
+    const u = new URL(value);
+    return ['https:', 'http:'].includes(u.protocol) ? u.href : null;
+  } catch {
+    return null;
+  }
+}
+function normalizeSchools(input) {
+  if (!Array.isArray(input)) return [];
+  const seen = new Set();
+  return input.filter(s => s && typeof s.name === 'string' && s.name.trim() && typeof s.address === 'string').map(s => ({
+    ...s,
+    name: s.name.trim(),
+    address: s.address.trim(),
+    id: String(s.id || `${s.name}|${s.address}`)
+  })).filter(s => {
+    if (seen.has(s.id)) return false;
+    seen.add(s.id);
+    return true;
+  });
+}
+function filterSchools(schools, query) {
+  const q = String(query || '').trim().toLocaleLowerCase();
+  return schools.filter(s => [s.name, s.city, s.address, s.zip].filter(Boolean).join(' ').toLocaleLowerCase().includes(q));
+}
 
 /** Pass the complete existing page dataset, enriched with verified lat/lng values. */
-function SchoolsMap({schools = defaultSchools, className = ''}) {
-  const records=useMemo(()=>normalizeSchools(schools),[schools]);
-  const [query,setQuery]=useState('');
-  const [active,setActive]=useState(null);
-  const [mapError,setMapError]=useState(false);
-  const searchId=useId(),canvas=useRef(null),instance=useRef(null),buttons=useRef(new Map());
-  const visible=useMemo(()=>filterSchools(records,query),[records,query]);
-  const visibleRef=useRef(visible);visibleRef.current=visible;
-  const activeRef=useRef(active);activeRef.current=active;
-  const selected=records.find(s=>s.id===active);
-  const mapped=visible.filter(hasCoordinates);
-  const motion=()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  useEffect(()=>{
-    const map=L.map(canvas.current,{scrollWheelZoom:false,zoomControl:false,minZoom:2,maxZoom:19,worldCopyJump:true});
-    map.attributionControl.setPrefix(false);
-    L.control.zoom({position:'bottomright'}).addTo(map);
-    let good=0,bad=0;
-    const tiles=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
-      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      maxZoom:19,referrerPolicy:'strict-origin-when-cross-origin',updateWhenIdle:true
+function SchoolsMap({
+  schools = defaultSchools,
+  className = ''
+}) {
+  const records = useMemo(() => normalizeSchools(schools), [schools]);
+  const [query, setQuery] = useState('');
+  const [active, setActive] = useState(null);
+  const [mapError, setMapError] = useState(false);
+  const searchId = useId(),
+    canvas = useRef(null),
+    instance = useRef(null),
+    buttons = useRef(new Map());
+  const visible = useMemo(() => filterSchools(records, query), [records, query]);
+  const visibleRef = useRef(visible);
+  visibleRef.current = visible;
+  const activeRef = useRef(active);
+  activeRef.current = active;
+  const selected = records.find(s => s.id === active);
+  const mapped = visible.filter(hasCoordinates);
+  const motion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  useEffect(() => {
+    const map = L.map(canvas.current, {
+      scrollWheelZoom: false,
+      zoomControl: false,
+      minZoom: 2,
+      maxZoom: 19,
+      worldCopyJump: true
     });
-    tiles.on('loading',()=>{good=0;bad=0;});
-    tiles.on('tileload',()=>{good++;setMapError(false);});
-    tiles.on('tileerror',()=>{bad++;if(bad>=3&&!good)setMapError(true);});
-    tiles.on('load',()=>setMapError(bad>0&&good===0));
+    map.attributionControl.setPrefix(false);
+    L.control.zoom({
+      position: 'bottomright'
+    }).addTo(map);
+    let good = 0,
+      bad = 0;
+    const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19,
+      referrerPolicy: 'strict-origin-when-cross-origin',
+      updateWhenIdle: true
+    });
+    tiles.on('loading', () => {
+      good = 0;
+      bad = 0;
+    });
+    tiles.on('tileload', () => {
+      good++;
+      setMapError(false);
+    });
+    tiles.on('tileerror', () => {
+      bad++;
+      if (bad >= 3 && !good) setMapError(true);
+    });
+    tiles.on('load', () => setMapError(bad > 0 && good === 0));
     tiles.addTo(map);
-    const cluster=L.markerClusterGroup({showCoverageOnHover:false,maxClusterRadius:42,spiderfyOnMaxZoom:true,animate:!motion(),
-      iconCreateFunction:group=>L.divIcon({html:`<span>${group.getChildCount()}</span>`,className:'ssm-cluster',iconSize:[44,44]})
+    const cluster = L.markerClusterGroup({
+      showCoverageOnHover: false,
+      maxClusterRadius: 42,
+      spiderfyOnMaxZoom: true,
+      animate: !motion(),
+      iconCreateFunction: group => L.divIcon({
+        html: `<span>${group.getChildCount()}</span>`,
+        className: 'ssm-cluster',
+        iconSize: [44, 44]
+      })
     });
     map.addLayer(cluster);
-    instance.current={map,cluster,markers:new Map()};
-    map.setView([36.5,-119.5],6);
+    instance.current = {
+      map,
+      cluster,
+      markers: new Map()
+    };
+    map.setView([36.5, -119.5], 6);
     let resizeFrame;
-    const observer=new ResizeObserver(()=>{cancelAnimationFrame(resizeFrame);resizeFrame=requestAnimationFrame(()=>map.invalidateSize({pan:false}));});
-    observer.observe(canvas.current);
-    return()=>{observer.disconnect();cancelAnimationFrame(resizeFrame);instance.current=null;map.remove();};
-  },[]);
-
-  useEffect(()=>{
-    const api=instance.current;if(!api)return;
-    const {map,cluster,markers}=api;cluster.clearLayers();markers.clear();
-    visible.filter(hasCoordinates).forEach(s=>{
-      const marker=L.marker([s.lat,s.lng],{title:s.name,alt:s.name,keyboard:true,riseOnHover:true,icon:L.divIcon({className:'ssm-marker',iconSize:[34,34],iconAnchor:[17,17],html:'<span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 8 9-5 9 5-9 5-9-5Zm4 3v6c3 3 7 3 10 0v-6M21 8v8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>'})});
-      const tip=document.createElement('span');tip.textContent=s.name;
-      marker.bindTooltip(tip,{direction:'top',offset:[0,-17],className:'ssm-tooltip',opacity:1});
-      const popup=document.createElement('div');popup.className='ssm-popup';
-      const title=document.createElement('strong');title.textContent=s.name;popup.append(title);
-      const address=document.createElement('p');address.textContent=s.address;popup.append(address);
-      const links=document.createElement('div');links.className='ssm-popup-links';
-      const directions=document.createElement('a');directions.textContent='Directions ↗';directions.href=`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(s.address)}`;directions.target='_blank';directions.rel='noopener noreferrer';links.append(directions);
-      const url=safeWebsite(s.website);if(url){const site=document.createElement('a');site.textContent='School website ↗';site.href=url;site.target='_blank';site.rel='noopener noreferrer';links.append(site);}
-      if(s.phone){const phone=document.createElement('a');phone.textContent=s.phone;phone.href='tel:'+s.phone.replace(/[^+0-9]/g,'');links.append(phone);}popup.append(links);marker.bindPopup(popup,{maxWidth:300,autoPanPadding:[28,70],className:'ssm-school-popup'});
-      marker.on('click',()=>{activeRef.current=s.id;setActive(s.id);buttons.current.get(s.id)?.scrollIntoView({block:'nearest',behavior:motion()?'instant':'smooth'});});
-      marker.on('add',()=>{const el=marker.getElement();if(!el)return;el.classList.toggle('is-selected',s.id===activeRef.current);el.setAttribute('role','button');el.setAttribute('aria-label',`View ${s.name}`);el.setAttribute('aria-pressed',String(s.id===activeRef.current));el.onfocus=()=>marker.openTooltip();el.onblur=()=>marker.closeTooltip();el.onkeydown=e=>{if(e.key===' '){e.preventDefault();marker.fire('click');marker.openPopup();}};});
-      markers.set(s.id,marker);cluster.addLayer(marker);
+    const observer = new ResizeObserver(() => {
+      cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(() => map.invalidateSize({
+        pan: false
+      }));
     });
-    const coords=visible.filter(hasCoordinates).map(s=>[s.lat,s.lng]);
-    if(coords.length)map.fitBounds(coords,{padding:[50,60],maxZoom:coords.length===1?14:11,animate:false});
-    else map.setView([36.5,-119.5],6,{animate:false});
-    if(active&&!visible.some(s=>s.id===active))setActive(null);
-  },[visible]);
-
-  useEffect(()=>{
-    instance.current?.markers.forEach((m,id)=>{m.getElement()?.classList.toggle('is-selected',id===active);m.getElement()?.setAttribute('aria-pressed',String(id===active));});
-  },[active]);
-
-  function choose(s){
-    activeRef.current=s.id;setActive(s.id);const api=instance.current,marker=api?.markers.get(s.id);if(!marker)return;
-    const chosen=s.id;
-    api.cluster.zoomToShowLayer(marker,()=>{if(instance.current===api&&activeRef.current===chosen&&visibleRef.current.some(item=>item.id===chosen)){marker.closeTooltip();marker.openPopup();}});
+    observer.observe(canvas.current);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(resizeFrame);
+      instance.current = null;
+      map.remove();
+    };
+  }, []);
+  useEffect(() => {
+    const api = instance.current;
+    if (!api) return;
+    const {
+      map,
+      cluster,
+      markers
+    } = api;
+    cluster.clearLayers();
+    markers.clear();
+    visible.filter(hasCoordinates).forEach(s => {
+      const marker = L.marker([s.lat, s.lng], {
+        title: s.name,
+        alt: s.name,
+        keyboard: true,
+        riseOnHover: true,
+        icon: L.divIcon({
+          className: 'ssm-marker',
+          iconSize: [34, 34],
+          iconAnchor: [17, 17],
+          html: '<span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 8 9-5 9 5-9 5-9-5Zm4 3v6c3 3 7 3 10 0v-6M21 8v8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>'
+        })
+      });
+      const tip = document.createElement('span');
+      tip.textContent = s.name;
+      marker.bindTooltip(tip, {
+        direction: 'top',
+        offset: [0, -17],
+        className: 'ssm-tooltip',
+        opacity: 1
+      });
+      const popup = document.createElement('div');
+      popup.className = 'ssm-popup';
+      const title = document.createElement('strong');
+      title.textContent = s.name;
+      popup.append(title);
+      const address = document.createElement('p');
+      address.textContent = s.address;
+      popup.append(address);
+      const links = document.createElement('div');
+      links.className = 'ssm-popup-links';
+      const directions = document.createElement('a');
+      directions.textContent = 'Directions ↗';
+      directions.href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(s.address)}`;
+      directions.target = '_blank';
+      directions.rel = 'noopener noreferrer';
+      links.append(directions);
+      const url = safeWebsite(s.website);
+      if (url) {
+        const site = document.createElement('a');
+        site.textContent = 'School website ↗';
+        site.href = url;
+        site.target = '_blank';
+        site.rel = 'noopener noreferrer';
+        links.append(site);
+      }
+      if (s.phone) {
+        const phone = document.createElement('a');
+        phone.textContent = s.phone;
+        phone.href = 'tel:' + s.phone.replace(/[^+0-9]/g, '');
+        links.append(phone);
+      }
+      popup.append(links);
+      marker.bindPopup(popup, {
+        maxWidth: 300,
+        autoPanPadding: [28, 70],
+        className: 'ssm-school-popup'
+      });
+      marker.on('click', () => {
+        activeRef.current = s.id;
+        setActive(s.id);
+        buttons.current.get(s.id)?.scrollIntoView({
+          block: 'nearest',
+          behavior: motion() ? 'instant' : 'smooth'
+        });
+      });
+      marker.on('add', () => {
+        const el = marker.getElement();
+        if (!el) return;
+        el.classList.toggle('is-selected', s.id === activeRef.current);
+        el.setAttribute('role', 'button');
+        el.setAttribute('aria-label', `View ${s.name}`);
+        el.setAttribute('aria-pressed', String(s.id === activeRef.current));
+        el.onfocus = () => marker.openTooltip();
+        el.onblur = () => marker.closeTooltip();
+        el.onkeydown = e => {
+          if (e.key === ' ') {
+            e.preventDefault();
+            marker.fire('click');
+            marker.openPopup();
+          }
+        };
+      });
+      markers.set(s.id, marker);
+      cluster.addLayer(marker);
+    });
+    const coords = visible.filter(hasCoordinates).map(s => [s.lat, s.lng]);
+    if (coords.length) map.fitBounds(coords, {
+      padding: [50, 60],
+      maxZoom: coords.length === 1 ? 14 : 11,
+      animate: false
+    });else map.setView([36.5, -119.5], 6, {
+      animate: false
+    });
+    if (active && !visible.some(s => s.id === active)) setActive(null);
+  }, [visible]);
+  useEffect(() => {
+    instance.current?.markers.forEach((m, id) => {
+      m.getElement()?.classList.toggle('is-selected', id === active);
+      m.getElement()?.setAttribute('aria-pressed', String(id === active));
+    });
+  }, [active]);
+  function choose(s) {
+    activeRef.current = s.id;
+    setActive(s.id);
+    const api = instance.current,
+      marker = api?.markers.get(s.id);
+    if (!marker) return;
+    const chosen = s.id;
+    api.cluster.zoomToShowLayer(marker, () => {
+      if (instance.current === api && activeRef.current === chosen && visibleRef.current.some(item => item.id === chosen)) {
+        marker.closeTooltip();
+        marker.openPopup();
+      }
+    });
   }
-  function highlight(s,on){const marker=instance.current?.markers.get(s.id);if(marker&&instance.current.cluster.hasLayer(marker)){if(on)marker.openTooltip();else marker.closeTooltip();}}
-  function reset(){const api=instance.current;if(!api)return;const coords=visible.filter(hasCoordinates).map(s=>[s.lat,s.lng]);if(coords.length)api.map.fitBounds(coords,{padding:[50,60],maxZoom:coords.length===1?14:11,animate:!motion()});}
-
-  return <section className={`stem-schools-map ${className}`} aria-label="Schools with STEM aviation">
-    <aside className="ssm-directory">
-      <div className="ssm-search"><label htmlFor={searchId}>Find a school</label><div className="ssm-search-input"><input id={searchId} type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="School, city, or ZIP code" autoComplete="off"/>{query&&<button type="button" onClick={()=>setQuery('')} aria-label="Clear search">×</button>}</div><p aria-live="polite">{visible.length} {visible.length===1?'entry':'entries'}{mapped.length!==visible.length?` · ${mapped.length} mapped`:''}</p></div>
-      <ul className="ssm-results" aria-label="School directory">{visible.map(s=><li key={s.id}><button ref={node=>{if(node)buttons.current.set(s.id,node);else buttons.current.delete(s.id);}} type="button" className="ssm-school" aria-pressed={active===s.id} onClick={()=>choose(s)} onMouseEnter={()=>highlight(s,true)} onMouseLeave={()=>highlight(s,false)} onFocus={()=>highlight(s,true)} onBlur={()=>highlight(s,false)}><span className="ssm-school-dot"/><span><strong>{s.name}</strong><span>{s.city||s.address}</span>{!hasCoordinates(s)&&<small>Map location pending</small>}</span><span aria-hidden="true" className="ssm-school-arrow">+</span></button></li>)}</ul>
-      {!visible.length&&<p className="ssm-empty">No schools match your search.</p>}
-      {selected&&!hasCoordinates(selected)&&<div className="ssm-pending" aria-live="polite"><strong>{selected.name}</strong><p>{selected.address}</p><a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selected.name+' '+selected.address)}`} target="_blank" rel="noopener noreferrer">Find on Google Maps</a></div>}
-      <div className="ssm-hint">Hover for a name. Select for details.</div>
-    </aside>
-    <div className="ssm-map-wrap"><div ref={canvas} className="ssm-map" aria-label="Interactive school locations map"/><button type="button" className="ssm-overview" onClick={reset} disabled={!mapped.length}>Show matching schools</button>
-      {mapError&&<div className="ssm-map-error" role="status">The map could not load. You can still browse the school directory. Check your connection or open the hosted site.</div>}
-      {!mapped.length&&visible.length>0&&<div className="ssm-map-error" role="status">School addresses are listed. Map locations are awaiting verification.</div>}
-    </div>
-  </section>;
+  function highlight(s, on) {
+    const marker = instance.current?.markers.get(s.id);
+    if (marker && instance.current.cluster.hasLayer(marker)) {
+      if (on) marker.openTooltip();else marker.closeTooltip();
+    }
+  }
+  function reset() {
+    const api = instance.current;
+    if (!api) return;
+    const coords = visible.filter(hasCoordinates).map(s => [s.lat, s.lng]);
+    if (coords.length) api.map.fitBounds(coords, {
+      padding: [50, 60],
+      maxZoom: coords.length === 1 ? 14 : 11,
+      animate: !motion()
+    });
+  }
+  return (0, _jsxRuntime.jsxs)("section", {
+    className: `stem-schools-map ${className}`,
+    "aria-label": "Schools with STEM aviation",
+    children: [(0, _jsxRuntime.jsxs)("aside", {
+      className: "ssm-directory",
+      children: [(0, _jsxRuntime.jsxs)("div", {
+        className: "ssm-search",
+        children: [(0, _jsxRuntime.jsx)("label", {
+          htmlFor: searchId,
+          children: "Find a school"
+        }), (0, _jsxRuntime.jsxs)("div", {
+          className: "ssm-search-input",
+          children: [(0, _jsxRuntime.jsx)("input", {
+            id: searchId,
+            type: "search",
+            value: query,
+            onChange: e => setQuery(e.target.value),
+            placeholder: "School, city, or ZIP code",
+            autoComplete: "off"
+          }), query && (0, _jsxRuntime.jsx)("button", {
+            type: "button",
+            onClick: () => setQuery(''),
+            "aria-label": "Clear search",
+            children: "\xD7"
+          })]
+        }), (0, _jsxRuntime.jsxs)("p", {
+          "aria-live": "polite",
+          children: [visible.length, " ", visible.length === 1 ? 'entry' : 'entries', mapped.length !== visible.length ? ` · ${mapped.length} mapped` : '']
+        })]
+      }), (0, _jsxRuntime.jsx)("ul", {
+        className: "ssm-results",
+        "aria-label": "School directory",
+        children: visible.map(s => (0, _jsxRuntime.jsx)("li", {
+          children: (0, _jsxRuntime.jsxs)("button", {
+            ref: node => {
+              if (node) buttons.current.set(s.id, node);else buttons.current.delete(s.id);
+            },
+            type: "button",
+            className: "ssm-school",
+            "aria-pressed": active === s.id,
+            onClick: () => choose(s),
+            onMouseEnter: () => highlight(s, true),
+            onMouseLeave: () => highlight(s, false),
+            onFocus: () => highlight(s, true),
+            onBlur: () => highlight(s, false),
+            children: [(0, _jsxRuntime.jsx)("span", {
+              className: "ssm-school-dot"
+            }), (0, _jsxRuntime.jsxs)("span", {
+              children: [(0, _jsxRuntime.jsx)("strong", {
+                children: s.name
+              }), (0, _jsxRuntime.jsx)("span", {
+                children: s.city || s.address
+              }), !hasCoordinates(s) && (0, _jsxRuntime.jsx)("small", {
+                children: "Map location pending"
+              })]
+            }), (0, _jsxRuntime.jsx)("span", {
+              "aria-hidden": "true",
+              className: "ssm-school-arrow",
+              children: "+"
+            })]
+          })
+        }, s.id))
+      }), !visible.length && (0, _jsxRuntime.jsx)("p", {
+        className: "ssm-empty",
+        children: "No schools match your search."
+      }), selected && !hasCoordinates(selected) && (0, _jsxRuntime.jsxs)("div", {
+        className: "ssm-pending",
+        "aria-live": "polite",
+        children: [(0, _jsxRuntime.jsx)("strong", {
+          children: selected.name
+        }), (0, _jsxRuntime.jsx)("p", {
+          children: selected.address
+        }), (0, _jsxRuntime.jsx)("a", {
+          href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selected.name + ' ' + selected.address)}`,
+          target: "_blank",
+          rel: "noopener noreferrer",
+          children: "Find on Google Maps"
+        })]
+      }), (0, _jsxRuntime.jsx)("div", {
+        className: "ssm-hint",
+        children: "Hover for a name. Select for details."
+      })]
+    }), (0, _jsxRuntime.jsxs)("div", {
+      className: "ssm-map-wrap",
+      children: [(0, _jsxRuntime.jsx)("div", {
+        ref: canvas,
+        className: "ssm-map",
+        "aria-label": "Interactive school locations map"
+      }), (0, _jsxRuntime.jsx)("button", {
+        type: "button",
+        className: "ssm-overview",
+        onClick: reset,
+        disabled: !mapped.length,
+        children: "Show matching schools"
+      }), mapError && (0, _jsxRuntime.jsx)("div", {
+        className: "ssm-map-error",
+        role: "status",
+        children: "The map could not load. You can still browse the school directory. Check your connection or open the hosted site."
+      }), !mapped.length && visible.length > 0 && (0, _jsxRuntime.jsx)("div", {
+        className: "ssm-map-error",
+        role: "status",
+        children: "School addresses are listed. Map locations are awaiting verification."
+      })]
+    })]
+  });
 }
-
-ReactDOM.createRoot(document.getElementById('root')).render(<React.StrictMode><SchoolsMap/></React.StrictMode>);
-document.getElementById('status').hidden=true;
+ReactDOM.createRoot(document.getElementById('root')).render((0, _jsxRuntime.jsx)(React.StrictMode, {
+  children: (0, _jsxRuntime.jsx)(SchoolsMap, {})
+}));
+document.getElementById('status').hidden = true;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ1c2VFZmZlY3QiLCJ1c2VJZCIsInVzZU1lbW8iLCJ1c2VSZWYiLCJ1c2VTdGF0ZSIsIlJlYWN0IiwiZGVmYXVsdFNjaG9vbHMiLCJoYXNDb29yZGluYXRlcyIsInMiLCJsYXQiLCJsbmciLCJOdW1iZXIiLCJpc0Zpbml0ZSIsInNhZmVXZWJzaXRlIiwidmFsdWUiLCJ1IiwiVVJMIiwiaW5jbHVkZXMiLCJwcm90b2NvbCIsImhyZWYiLCJub3JtYWxpemVTY2hvb2xzIiwiaW5wdXQiLCJBcnJheSIsImlzQXJyYXkiLCJzZWVuIiwiU2V0IiwiZmlsdGVyIiwibmFtZSIsInRyaW0iLCJhZGRyZXNzIiwibWFwIiwiaWQiLCJTdHJpbmciLCJoYXMiLCJhZGQiLCJmaWx0ZXJTY2hvb2xzIiwic2Nob29scyIsInF1ZXJ5IiwicSIsInRvTG9jYWxlTG93ZXJDYXNlIiwiY2l0eSIsInppcCIsIkJvb2xlYW4iLCJqb2luIiwiU2Nob29sc01hcCIsImNsYXNzTmFtZSIsInJlY29yZHMiLCJzZXRRdWVyeSIsImFjdGl2ZSIsInNldEFjdGl2ZSIsIm1hcEVycm9yIiwic2V0TWFwRXJyb3IiLCJzZWFyY2hJZCIsImNhbnZhcyIsImluc3RhbmNlIiwiYnV0dG9ucyIsIk1hcCIsInZpc2libGUiLCJ2aXNpYmxlUmVmIiwiY3VycmVudCIsImFjdGl2ZVJlZiIsInNlbGVjdGVkIiwiZmluZCIsIm1hcHBlZCIsIm1vdGlvbiIsIndpbmRvdyIsIm1hdGNoTWVkaWEiLCJtYXRjaGVzIiwiTCIsInNjcm9sbFdoZWVsWm9vbSIsInpvb21Db250cm9sIiwibWluWm9vbSIsIm1heFpvb20iLCJ3b3JsZENvcHlKdW1wIiwiYXR0cmlidXRpb25Db250cm9sIiwic2V0UHJlZml4IiwiY29udHJvbCIsInpvb20iLCJwb3NpdGlvbiIsImFkZFRvIiwiZ29vZCIsImJhZCIsInRpbGVzIiwidGlsZUxheWVyIiwiYXR0cmlidXRpb24iLCJyZWZlcnJlclBvbGljeSIsInVwZGF0ZVdoZW5JZGxlIiwib24iLCJjbHVzdGVyIiwibWFya2VyQ2x1c3Rlckdyb3VwIiwic2hvd0NvdmVyYWdlT25Ib3ZlciIsIm1heENsdXN0ZXJSYWRpdXMiLCJzcGlkZXJmeU9uTWF4Wm9vbSIsImFuaW1hdGUiLCJpY29uQ3JlYXRlRnVuY3Rpb24iLCJncm91cCIsImRpdkljb24iLCJodG1sIiwiZ2V0Q2hpbGRDb3VudCIsImljb25TaXplIiwiYWRkTGF5ZXIiLCJtYXJrZXJzIiwic2V0VmlldyIsInJlc2l6ZUZyYW1lIiwib2JzZXJ2ZXIiLCJSZXNpemVPYnNlcnZlciIsImNhbmNlbEFuaW1hdGlvbkZyYW1lIiwicmVxdWVzdEFuaW1hdGlvbkZyYW1lIiwiaW52YWxpZGF0ZVNpemUiLCJwYW4iLCJvYnNlcnZlIiwiZGlzY29ubmVjdCIsInJlbW92ZSIsImFwaSIsImNsZWFyTGF5ZXJzIiwiY2xlYXIiLCJmb3JFYWNoIiwibWFya2VyIiwidGl0bGUiLCJhbHQiLCJrZXlib2FyZCIsInJpc2VPbkhvdmVyIiwiaWNvbiIsImljb25BbmNob3IiLCJ0aXAiLCJkb2N1bWVudCIsImNyZWF0ZUVsZW1lbnQiLCJ0ZXh0Q29udGVudCIsImJpbmRUb29sdGlwIiwiZGlyZWN0aW9uIiwib2Zmc2V0Iiwib3BhY2l0eSIsInBvcHVwIiwiYXBwZW5kIiwibGlua3MiLCJkaXJlY3Rpb25zIiwiZW5jb2RlVVJJQ29tcG9uZW50IiwidGFyZ2V0IiwicmVsIiwidXJsIiwid2Vic2l0ZSIsInNpdGUiLCJwaG9uZSIsInJlcGxhY2UiLCJiaW5kUG9wdXAiLCJtYXhXaWR0aCIsImF1dG9QYW5QYWRkaW5nIiwiZ2V0Iiwic2Nyb2xsSW50b1ZpZXciLCJibG9jayIsImJlaGF2aW9yIiwiZWwiLCJnZXRFbGVtZW50IiwiY2xhc3NMaXN0IiwidG9nZ2xlIiwic2V0QXR0cmlidXRlIiwib25mb2N1cyIsIm9wZW5Ub29sdGlwIiwib25ibHVyIiwiY2xvc2VUb29sdGlwIiwib25rZXlkb3duIiwiZSIsImtleSIsInByZXZlbnREZWZhdWx0IiwiZmlyZSIsIm9wZW5Qb3B1cCIsInNldCIsImNvb3JkcyIsImxlbmd0aCIsImZpdEJvdW5kcyIsInBhZGRpbmciLCJzb21lIiwibSIsImNob29zZSIsImNob3NlbiIsInpvb21Ub1Nob3dMYXllciIsIml0ZW0iLCJoaWdobGlnaHQiLCJoYXNMYXllciIsInJlc2V0IiwiX2pzeFJ1bnRpbWUiLCJqc3hzIiwiY2hpbGRyZW4iLCJqc3giLCJodG1sRm9yIiwidHlwZSIsIm9uQ2hhbmdlIiwicGxhY2Vob2xkZXIiLCJhdXRvQ29tcGxldGUiLCJvbkNsaWNrIiwicmVmIiwibm9kZSIsImRlbGV0ZSIsIm9uTW91c2VFbnRlciIsIm9uTW91c2VMZWF2ZSIsIm9uRm9jdXMiLCJvbkJsdXIiLCJkaXNhYmxlZCIsInJvbGUiLCJSZWFjdERPTSIsImNyZWF0ZVJvb3QiLCJnZXRFbGVtZW50QnlJZCIsInJlbmRlciIsIlN0cmljdE1vZGUiLCJoaWRkZW4iXSwic291cmNlcyI6WyJwcmV2aWV3LmpzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJjb25zdCB7dXNlRWZmZWN0LHVzZUlkLHVzZU1lbW8sdXNlUmVmLHVzZVN0YXRlfT1SZWFjdDtcbmNvbnN0IGRlZmF1bHRTY2hvb2xzPVtcbiAge1xuICAgIFwiaWRcIjogXCJiaWctYmVhci1oaWdoLXNjaG9vbFwiLFxuICAgIFwibmFtZVwiOiBcIkJpZyBCZWFyIEhpZ2ggU2Nob29sXCIsXG4gICAgXCJhZGRyZXNzXCI6IFwiMzUxIE1hcGxlIExuLCBCaWcgQmVhciBMYWtlLCBDQSA5MjMxNVwiLFxuICAgIFwiY2l0eVwiOiBcIkJpZyBCZWFyIExha2VcIixcbiAgICBcIndlYnNpdGVcIjogXCJodHRwczovL2JiaHMuYmVhcnZhbGxleXVzZC5vcmdcIixcbiAgICBcInNvdXJjZVwiOiBcImh0dHBzOi8vc3RlbWF2aWF0aW9uLm9yZy9yZXNvdXJjZXMvc2Nob29scy13aXRoLXN0ZW0tYXZpYXRpb24vXCIsXG4gICAgXCJsYXRcIjogMzQuMjUzODUsXG4gICAgXCJsbmdcIjogLTExNi44MjU0OSxcbiAgICBcInBob25lXCI6IFwiKzEgOTA5LTU4NS02ODkyXCIsXG4gICAgXCJjb29yZGluYXRlU291cmNlXCI6IFwiaHR0cHM6Ly9tYXBjYXJ0YS5jb20vMjMwMDE5OThcIixcbiAgICBcImNvb3JkaW5hdGVBY2N1cmFjeVwiOiBcIkNhbXB1cy9hZGRyZXNzIGxvY2F0aW9uOyBub3QgYSBzdXJ2ZXllZCBlbnRyYW5jZVwiXG4gIH0sXG4gIHtcbiAgICBcImlkXCI6IFwic3RlbTMtYWNhZGVteVwiLFxuICAgIFwibmFtZVwiOiBcIlNURU0zIEFjYWRlbXlcIixcbiAgICBcImFkZHJlc3NcIjogXCI2NDU1IENvbGR3YXRlciBDYW55b24gQXZlLCBWYWxsZXkgR2xlbiwgQ0EgOTE2MDZcIixcbiAgICBcImNpdHlcIjogXCJWYWxsZXkgR2xlblwiLFxuICAgIFwid2Vic2l0ZVwiOiBcImh0dHBzOi8vd3d3LnN0ZW0zYWNhZGVteS5vcmdcIixcbiAgICBcInNvdXJjZVwiOiBcImh0dHBzOi8vc3RlbWF2aWF0aW9uLm9yZy9yZXNvdXJjZXMvc2Nob29scy13aXRoLXN0ZW0tYXZpYXRpb24vXCIsXG4gICAgXCJsYXRcIjogMzQuMTg4Mjg3LFxuICAgIFwibG5nXCI6IC0xMTguNDE0MDUxLFxuICAgIFwicGhvbmVcIjogXCIrMSA4MTgtNjIzLTYzODZcIixcbiAgICBcImNvb3JkaW5hdGVTb3VyY2VcIjogXCJodHRwczovL3NhbmZlcm5hbmRvLmtpZHNvdXRhbmRhYm91dC5jb20vY29udGVudC9zdW1taXQtdmlldy12YWxsZXktc2Nob29sXCIsXG4gICAgXCJjb29yZGluYXRlQWNjdXJhY3lcIjogXCJDYW1wdXMvYWRkcmVzcyBsb2NhdGlvbjsgbm90IGEgc3VydmV5ZWQgZW50cmFuY2VcIlxuICB9LFxuICB7XG4gICAgXCJpZFwiOiBcImNhcmVlci1lZHVjYXRpb24tY2VudGVyXCIsXG4gICAgXCJuYW1lXCI6IFwiQ2FyZWVyIEVkdWNhdGlvbiBDZW50ZXJcIixcbiAgICBcImFkZHJlc3NcIjogXCI0NjUgSG9yaXpvbiBDaXIsIENhbWFyaWxsbywgQ0EgOTMwMTBcIixcbiAgICBcImNpdHlcIjogXCJDYW1hcmlsbG9cIixcbiAgICBcIndlYnNpdGVcIjogXCJodHRwczovL3d3dy52Y29lLm9yZ1wiLFxuICAgIFwic291cmNlXCI6IFwiaHR0cHM6Ly9zdGVtYXZpYXRpb24ub3JnL3Jlc291cmNlcy9zY2hvb2xzLXdpdGgtc3RlbS1hdmlhdGlvbi9cIixcbiAgICBcImxhdFwiOiAzNC4yMDc1NzcsXG4gICAgXCJsbmdcIjogLTExOS4wNzUxODYsXG4gICAgXCJwaG9uZVwiOiBcIisxIDgwNS00MzctMTQyMFwiLFxuICAgIFwiY29vcmRpbmF0ZVNvdXJjZVwiOiBcImh0dHBzOi8vd3d3Lm1hcG15Yml6ei5jb20vcGxhY2UvY2FyZWVyLWVkdWNhdGlvbi1jZW50ZXItY2FtYXJpbGxvL1wiLFxuICAgIFwiY29vcmRpbmF0ZUFjY3VyYWN5XCI6IFwiQ2FtcHVzL2FkZHJlc3MgbG9jYXRpb247IG5vdCBhIHN1cnZleWVkIGVudHJhbmNlXCJcbiAgfSxcbiAge1xuICAgIFwiaWRcIjogXCJhLWItbWlsbGVyLWhpZ2gtc2Nob29sXCIsXG4gICAgXCJuYW1lXCI6IFwiQS5CLiBNaWxsZXIgSGlnaCBTY2hvb2xcIixcbiAgICBcImFkZHJlc3NcIjogXCI2ODIxIE9sZWFuZGVyIEF2ZSwgRm9udGFuYSwgQ0EgOTIzMzZcIixcbiAgICBcImNpdHlcIjogXCJGb250YW5hXCIsXG4gICAgXCJ3ZWJzaXRlXCI6IFwiaHR0cHM6Ly93d3cuZnVzZC5uZXRcIixcbiAgICBcInNvdXJjZVwiOiBcImh0dHBzOi8vc3RlbWF2aWF0aW9uLm9yZy9yZXNvdXJjZXMvc2Nob29scy13aXRoLXN0ZW0tYXZpYXRpb24vXCIsXG4gICAgXCJsYXRcIjogMzQuMTI5NDYsXG4gICAgXCJsbmdcIjogLTExNy40NDgxLFxuICAgIFwicGhvbmVcIjogXCIrMSA5MDktMzU3LTU4MDBcIixcbiAgICBcImNvb3JkaW5hdGVTb3VyY2VcIjogXCJodHRwczovL21hcGNhcnRhLmNvbS8yMjk4OTk4MlwiLFxuICAgIFwiY29vcmRpbmF0ZUFjY3VyYWN5XCI6IFwiQ2FtcHVzL2FkZHJlc3MgbG9jYXRpb247IG5vdCBhIHN1cnZleWVkIGVudHJhbmNlXCJcbiAgfSxcbiAge1xuICAgIFwiaWRcIjogXCJzY2hvb2wtb2YtZXh0ZW5kZWQtZWR1Y2F0aW9uYWwtb3B0aW9uc1wiLFxuICAgIFwibmFtZVwiOiBcIlNjaG9vbCBvZiBFeHRlbmRlZCBFZHVjYXRpb25hbCBPcHRpb25zXCIsXG4gICAgXCJhZGRyZXNzXCI6IFwiMTQ0NCBFIEhvbHQgQXZlLCBQb21vbmEsIENBIDkxNzY3XCIsXG4gICAgXCJjaXR5XCI6IFwiUG9tb25hXCIsXG4gICAgXCJ3ZWJzaXRlXCI6IFwiaHR0cHM6Ly9zZWVvLnB1c2Qub3JnXCIsXG4gICAgXCJzb3VyY2VcIjogXCJodHRwczovL3N0ZW1hdmlhdGlvbi5vcmcvcmVzb3VyY2VzL3NjaG9vbHMtd2l0aC1zdGVtLWF2aWF0aW9uL1wiLFxuICAgIFwibGF0XCI6IDM0LjA2MTc3NixcbiAgICBcImxuZ1wiOiAtMTE3LjcyMjU4MyxcbiAgICBcInBob25lXCI6IFwiKzEgOTA5LTM5Ny00OTAwXCIsXG4gICAgXCJjb29yZGluYXRlU291cmNlXCI6IFwiaHR0cHM6Ly93d3cucG9tb25hY2EuZ292L2hvbWUvc2hvd3B1Ymxpc2hlZGRvY3VtZW50LzIwMC82Mzc0NTU0Nzc1OTI4MDAwMDBcIixcbiAgICBcImNvb3JkaW5hdGVBY2N1cmFjeVwiOiBcIkNhbXB1cy9hZGRyZXNzIGxvY2F0aW9uOyBub3QgYSBzdXJ2ZXllZCBlbnRyYW5jZVwiLFxuICAgIFwibG9jYXRpb25Ob3RlXCI6IFwiUGluIGZvbGxvd3MgdGhlIHN1cHBsaWVkIDE0NDQgRSBIb2x0IEF2ZSBhZGRyZXNzLiBDREUgbm93IGxpc3RzIDIyMTEgTm9ydGggT3JhbmdlIEdyb3ZlIEF2ZTsgY29uZmlybSBiZWZvcmUgY2hhbmdpbmcgdGhpcyBsaXN0aW5nLlwiXG4gIH0sXG4gIHtcbiAgICBcImlkXCI6IFwiZmxhYm9iLWFpcnBvcnQtcHJlcGFyYXRvcnktYWNhZGVteVwiLFxuICAgIFwibmFtZVwiOiBcIkZsYWJvYiBBaXJwb3J0IFByZXBhcmF0b3J5IEFjYWRlbXlcIixcbiAgICBcImFkZHJlc3NcIjogXCI1NTgwIDQybmQgU3QsIFJpdmVyc2lkZSwgQ0EgOTI1MDlcIixcbiAgICBcImNpdHlcIjogXCJSaXZlc…5253 tokens truncated…e3F1ZXJ5JiY8YnV0dG9uIHR5cGU9XCJidXR0b25cIiBvbkNsaWNrPXsoKT0+c2V0UXVlcnkoJycpfSBhcmlhLWxhYmVsPVwiQ2xlYXIgc2VhcmNoXCI+w5c8L2J1dHRvbj59PC9kaXY+PHAgYXJpYS1saXZlPVwicG9saXRlXCI+e3Zpc2libGUubGVuZ3RofSB7dmlzaWJsZS5sZW5ndGg9PT0xPydlbnRyeSc6J2VudHJpZXMnfXttYXBwZWQubGVuZ3RoIT09dmlzaWJsZS5sZW5ndGg/YCDCtyAke21hcHBlZC5sZW5ndGh9IG1hcHBlZGA6Jyd9PC9wPjwvZGl2PlxuICAgICAgPHVsIGNsYXNzTmFtZT1cInNzbS1yZXN1bHRzXCIgYXJpYS1sYWJlbD1cIlNjaG9vbCBkaXJlY3RvcnlcIj57dmlzaWJsZS5tYXAocz0+PGxpIGtleT17cy5pZH0+PGJ1dHRvbiByZWY9e25vZGU9PntpZihub2RlKWJ1dHRvbnMuY3VycmVudC5zZXQocy5pZCxub2RlKTtlbHNlIGJ1dHRvbnMuY3VycmVudC5kZWxldGUocy5pZCk7fX0gdHlwZT1cImJ1dHRvblwiIGNsYXNzTmFtZT1cInNzbS1zY2hvb2xcIiBhcmlhLXByZXNzZWQ9e2FjdGl2ZT09PXMuaWR9IG9uQ2xpY2s9eygpPT5jaG9vc2Uocyl9IG9uTW91c2VFbnRlcj17KCk9PmhpZ2hsaWdodChzLHRydWUpfSBvbk1vdXNlTGVhdmU9eygpPT5oaWdobGlnaHQocyxmYWxzZSl9IG9uRm9jdXM9eygpPT5oaWdobGlnaHQocyx0cnVlKX0gb25CbHVyPXsoKT0+aGlnaGxpZ2h0KHMsZmFsc2UpfT48c3BhbiBjbGFzc05hbWU9XCJzc20tc2Nob29sLWRvdFwiLz48c3Bhbj48c3Ryb25nPntzLm5hbWV9PC9zdHJvbmc+PHNwYW4+e3MuY2l0eXx8cy5hZGRyZXNzfTwvc3Bhbj57IWhhc0Nvb3JkaW5hdGVzKHMpJiY8c21hbGw+TWFwIGxvY2F0aW9uIHBlbmRpbmc8L3NtYWxsPn08L3NwYW4+PHNwYW4gYXJpYS1oaWRkZW49XCJ0cnVlXCIgY2xhc3NOYW1lPVwic3NtLXNjaG9vbC1hcnJvd1wiPis8L3NwYW4+PC9idXR0b24+PC9saT4pfTwvdWw+XG4gICAgICB7IXZpc2libGUubGVuZ3RoJiY8cCBjbGFzc05hbWU9XCJzc20tZW1wdHlcIj5ObyBzY2hvb2xzIG1hdGNoIHlvdXIgc2VhcmNoLjwvcD59XG4gICAgICB7c2VsZWN0ZWQmJiFoYXNDb29yZGluYXRlcyhzZWxlY3RlZCkmJjxkaXYgY2xhc3NOYW1lPVwic3NtLXBlbmRpbmdcIiBhcmlhLWxpdmU9XCJwb2xpdGVcIj48c3Ryb25nPntzZWxlY3RlZC5uYW1lfTwvc3Ryb25nPjxwPntzZWxlY3RlZC5hZGRyZXNzfTwvcD48YSBocmVmPXtgaHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS9tYXBzL3NlYXJjaC8/YXBpPTEmcXVlcnk9JHtlbmNvZGVVUklDb21wb25lbnQoc2VsZWN0ZWQubmFtZSsnICcrc2VsZWN0ZWQuYWRkcmVzcyl9YH0gdGFyZ2V0PVwiX2JsYW5rXCIgcmVsPVwibm9vcGVuZXIgbm9yZWZlcnJlclwiPkZpbmQgb24gR29vZ2xlIE1hcHM8L2E+PC9kaXY+fVxuICAgICAgPGRpdiBjbGFzc05hbWU9XCJzc20taGludFwiPkhvdmVyIGZvciBhIG5hbWUuIFNlbGVjdCBmb3IgZGV0YWlscy48L2Rpdj5cbiAgICA8L2FzaWRlPlxuICAgIDxkaXYgY2xhc3NOYW1lPVwic3NtLW1hcC13cmFwXCI+PGRpdiByZWY9e2NhbnZhc30gY2xhc3NOYW1lPVwic3NtLW1hcFwiIGFyaWEtbGFiZWw9XCJJbnRlcmFjdGl2ZSBzY2hvb2wgbG9jYXRpb25zIG1hcFwiLz48YnV0dG9uIHR5cGU9XCJidXR0b25cIiBjbGFzc05hbWU9XCJzc20tb3ZlcnZpZXdcIiBvbkNsaWNrPXtyZXNldH0gZGlzYWJsZWQ9eyFtYXBwZWQubGVuZ3RofT5TaG93IG1hdGNoaW5nIHNjaG9vbHM8L2J1dHRvbj5cbiAgICAgIHttYXBFcnJvciYmPGRpdiBjbGFzc05hbWU9XCJzc20tbWFwLWVycm9yXCIgcm9sZT1cInN0YXR1c1wiPlRoZSBtYXAgY291bGQgbm90IGxvYWQuIFlvdSBjYW4gc3RpbGwgYnJvd3NlIHRoZSBzY2hvb2wgZGlyZWN0b3J5LiBDaGVjayB5b3VyIGNvbm5lY3Rpb24gb3Igb3BlbiB0aGUgaG9zdGVkIHNpdGUuPC9kaXY+fVxuICAgICAgeyFtYXBwZWQubGVuZ3RoJiZ2aXNpYmxlLmxlbmd0aD4wJiY8ZGl2IGNsYXNzTmFtZT1cInNzbS1tYXAtZXJyb3JcIiByb2xlPVwic3RhdHVzXCI+U2Nob29sIGFkZHJlc3NlcyBhcmUgbGlzdGVkLiBNYXAgbG9jYXRpb25zIGFyZSBhd2FpdGluZyB2ZXJpZmljYXRpb24uPC9kaXY+fVxuICAgIDwvZGl2PlxuICA8L3NlY3Rpb24+O1xufVxuXG5SZWFjdERPTS5jcmVhdGVSb290KGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdyb290JykpLnJlbmRlcig8UmVhY3QuU3RyaWN0TW9kZT48U2Nob29sc01hcC8+PC9SZWFjdC5TdHJpY3RNb2RlPik7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3N0YXR1cycpLmhpZGRlbj10cnVlOyJdLCJtYXBwaW5ncyI6Ijs7O0FBQUEsTUFBTTtFQUFDQSxTQUFTO0VBQUNDLEtBQUs7RUFBQ0MsT0FBTztFQUFDQyxNQUFNO0VBQUNDO0FBQVEsQ0FBQyxHQUFDQyxLQUFLO0FBQ3JELE1BQU1DLGNBQWMsR0FBQyxDQUNuQjtFQUNFLElBQUksRUFBRSxzQkFBc0I7RUFDNUIsTUFBTSxFQUFFLHNCQUFzQjtFQUM5QixTQUFTLEVBQUUsdUNBQXVDO0VBQ2xELE1BQU0sRUFBRSxlQUFlO0VBQ3ZCLFNBQVMsRUFBRSxnQ0FBZ0M7RUFDM0MsUUFBUSxFQUFFLGdFQUFnRTtFQUMxRSxLQUFLLEVBQUUsUUFBUTtFQUNmLEtBQUssRUFBRSxDQUFDLFNBQVM7RUFDakIsT0FBTyxFQUFFLGlCQUFpQjtFQUMxQixrQkFBa0IsRUFBRSwrQkFBK0I7RUFDbkQsb0JBQW9CLEVBQUU7QUFDeEIsQ0FBQyxFQUNEO0VBQ0UsSUFBSSxFQUFFLGVBQWU7RUFDckIsTUFBTSxFQUFFLGVBQWU7RUFD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
+ }catch(error){showError(error.message);}
+})();
 </script></body></html>
