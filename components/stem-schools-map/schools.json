@@ -1,0 +1,155 @@
+[
+  {
+    "id": "big-bear-high-school",
+    "name": "Big Bear High School",
+    "address": "351 Maple Ln, Big Bear Lake, CA 92315",
+    "city": "Big Bear Lake",
+    "website": "https://bbhs.bearvalleyusd.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "stem3-academy",
+    "name": "STEM3 Academy",
+    "address": "6455 Coldwater Canyon Ave, Valley Glen, CA 91606",
+    "city": "Valley Glen",
+    "website": "https://www.stem3academy.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "career-education-center",
+    "name": "Career Education Center",
+    "address": "465 Horizon Cir, Camarillo, CA 93010",
+    "city": "Camarillo",
+    "website": "https://www.vcoe.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "a-b-miller-high-school",
+    "name": "A.B. Miller High School",
+    "address": "6821 Oleander Ave, Fontana, CA 92336",
+    "city": "Fontana",
+    "website": "https://www.fusd.net",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "school-of-extended-educational-options",
+    "name": "School of Extended Educational Options",
+    "address": "1444 E Holt Ave, Pomona, CA 91767",
+    "city": "Pomona",
+    "website": "https://seeo.pusd.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "flabob-airport-preparatory-academy",
+    "name": "Flabob Airport Preparatory Academy",
+    "address": "5580 42nd St, Riverside, CA 92509",
+    "city": "Riverside",
+    "website": "https://springscs.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "corona-norco-unified-district",
+    "name": "Corona-Norco Unified District",
+    "address": "2820 Clark Ave, Norco, CA 92860",
+    "city": "Norco",
+    "website": "https://www.cnusd.k12.ca.us",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "north-high-school",
+    "name": "North High School",
+    "address": "3620 W 182nd St, Torrance, CA 90504",
+    "city": "Torrance",
+    "website": "https://www.tusd.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "canyon-high-school",
+    "name": "Canyon High School",
+    "address": "220 S Imperial Hwy, Anaheim, CA 92807",
+    "city": "Anaheim",
+    "website": "https://www.canyonhighschool.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "san-jacinto-valley-academy",
+    "name": "San Jacinto Valley Academy",
+    "address": "480 N San Jacinto Ave, San Jacinto, CA 92583",
+    "city": "San Jacinto",
+    "website": "https://www.sjva.net",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "shadow-hills-high-school",
+    "name": "Shadow Hills High School",
+    "address": "39-225 Jefferson St, Indio, CA 92203",
+    "city": "Indio",
+    "website": "https://www.cde.ca.gov",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "irvine-high-school",
+    "name": "Irvine High School",
+    "address": "4321 Walnut Ave, Irvine, CA 92604",
+    "city": "Irvine",
+    "website": "https://www.irvinehigh.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "desert-mirage-high-school",
+    "name": "Desert Mirage High School",
+    "address": "86150 66th Ave, Thermal, CA 92274",
+    "city": "Thermal",
+    "website": "https://dmhs.cvusd.us",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "army-and-navy-academy",
+    "name": "Army and Navy Academy",
+    "address": "2605 Carlsbad Blvd, Carlsbad, CA 92008",
+    "city": "Carlsbad",
+    "website": "https://www.armyandnavyacademy.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "high-tech-high-north-county",
+    "name": "High Tech High North County",
+    "address": "1420 W San Marcos Blvd, San Marcos, CA 92078",
+    "city": "San Marcos",
+    "website": "https://www.hightechhigh.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "foothills-christian-high-school",
+    "name": "Foothills Christian High School",
+    "address": "2321 Dryden Rd, El Cajon, CA 92020",
+    "city": "El Cajon",
+    "website": "https://www.foothillsschool.net",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "rock-academy",
+    "name": "Rock Academy",
+    "address": "2277 Rosecrans St, San Diego, CA 92106",
+    "city": "San Diego",
+    "website": "https://www.therockacademy.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "e3-civic-high",
+    "name": "e3 Civic High",
+    "address": "395 Eleventh Ave 6th floor, San Diego, CA 92101",
+    "city": "San Diego",
+    "website": "https://www.e3civichigh.com",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "geocodeAddress": "395 Eleventh Ave, San Diego, CA 92101"
+  },
+  {
+    "id": "calvary-christian-academy",
+    "name": "Calvary Christian Academy",
+    "address": "1771 E Palomar St, Chula Vista, CA 91913",
+    "city": "Chula Vista",
+    "website": "https://www.ccaknights.com",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  }
+]
