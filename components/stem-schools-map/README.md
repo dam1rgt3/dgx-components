@@ -2,7 +2,7 @@
 
 Interactive React component with all 19 participating schools confirmed in the user's screenshot. Locations are included in `schools.json`: no live geocoding, API key, or address-lookup delay is required.
 
-[Open preview](https://htmlpreview.github.io/?https://github.com/dam1rgt3/dgx-components/blob/main/components/stem-schools-map/preview.html)
+[Open preview](https://raw.githack.com/dam1rgt3/dgx-components/main/components/stem-schools-map/preview.html)
 
 If the third-party preview service fails, download `preview.html` and open it in your browser. The preview renders the actual React component, with its actual dataset and CSS. Internet access is required for the pinned CDN libraries and OpenStreetMap tiles.
 
@@ -59,6 +59,6 @@ Keep OpenStreetMap attribution visible and retain normal caching/referrer behavi
 
 ## Validation
 
-Run `node --test schools-map.test.mjs` for data/utility/geocoding validation and `node build-preview.mjs` to regenerate the preview from source. The 19 locations, unique IDs, California coordinate bounds, source URLs, search, URL safety and geocoding rejection paths are covered by tests. The React source and generated preview script were compiled with Babel to catch JSX syntax errors.
+Run `node --test schools-map.test.mjs` for data/utility/geocoding validation and `npm install` then `node build-preview.mjs` to regenerate the preview from source. The 19 locations, unique IDs, California coordinate bounds, source URLs, search, URL safety and geocoding rejection paths are covered by tests. The React source and generated preview script were compiled with Babel to catch JSX syntax errors.
 
 A headless browser check was attempted but the local browser could not launch under the execution sandbox (access denied). Therefore live tile loading, appearance and interactive browser behavior still need confirmation in Lovable or the linked preview. No successful browser test is claimed.
