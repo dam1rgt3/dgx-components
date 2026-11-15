@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>STEM Schools Map Preview</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+<style>body{margin:0;padding:32px;background:#f4f2ed;color:#18364b;font-family:Arial,sans-serif}main{max-width:1320px;margin:auto}h1{font-size:32px;font-weight:500;margin:0 0 12px}header p{line-height:1.6;max-width:850px}#status{min-height:24px;font-size:14px}button{font:inherit}#download{padding:10px 16px;margin:0 0 16px;border:1px solid #b9c7ca;background:#fffdf9;color:#18364b;cursor:pointer}@media(max-width:600px){body{padding:16px}h1{font-size:26px}}.stem-schools-map{--ssm-navy:#18364b;--ssm-blue:#236583;--ssm-paper:#fffdf9;display:grid;grid-template-columns:320px minmax(0,1fr);height:660px;min-height:480px;background:var(--ssm-paper);border:1px solid #d9e0df;border-radius:8px;overflow:hidden;isolation:isolate;font-family:Arial,Helvetica,sans-serif;color:var(--ssm-navy);box-shadow:0 18px 50px -35px #18364b55}.stem-schools-map *{box-sizing:border-box}.stem-schools-map button,.stem-schools-map input{font:inherit}.stem-schools-map button{cursor:pointer}.stem-schools-map button:focus-visible,.stem-schools-map input:focus-visible,.stem-schools-map a:focus-visible,.stem-schools-map .leaflet-marker-icon:focus-visible{outline:3px solid #b08034;outline-offset:3px}.ssm-directory{display:flex;flex-direction:column;min-height:0;border-right:1px solid #d9e0df;background:var(--ssm-paper);z-index:2}.ssm-search{padding:26px 22px 14px}.ssm-search label{display:block;font-size:23px;font-weight:500;letter-spacing:-.6px;margin-bottom:18px}.ssm-search-input{position:relative}.ssm-search input{width:100%;border:1px solid #c9d5d8;border-radius:3px;padding:12px 30px 12px 12px;background:#fff;color:var(--ssm-navy);font-size:13px}.ssm-search input::-webkit-search-cancel-button{display:none}.ssm-search-input button{position:absolute;right:2px;top:2px;bottom:2px;width:32px;border:0;background:none;color:#4d6674;font-size:22px}.ssm-search p{font-size:12px;color:#60727b;margin:14px 0 0}.ssm-results{list-style:none;padding:0 12px;margin:0;overflow-y:auto;overscroll-behavior:contain;flex:1;scrollbar-width:thin;scrollbar-color:#bccbcf transparent}.ssm-results li{margin:0}.ssm-school{width:100%;display:flex;gap:12px;align-items:flex-start;text-align:left;padding:17px 10px;border:0;border-bottom:1px solid #e4e8e4;background:none;color:var(--ssm-navy);transition:background .15s}.ssm-school:hover,.ssm-school[aria-pressed=true]{background:#eaf1f2}.ssm-school strong{font-size:14px;line-height:1.4;font-weight:600;display:block}.ssm-school span span{display:block;font-size:12px;color:#60727b;margin-top:5px;line-height:1.5}.ssm-school small{display:block;color:#7a653e;font-size:11px;margin-top:6px}.ssm-school-dot{width:6px;height:6px;flex:0 0 6px;border-radius:50%;background:#82a2ae;margin-top:7px}.ssm-school[aria-pressed=true] .ssm-school-dot{background:#af7d31;box-shadow:0 0 0 4px #af7d3118}.ssm-school-arrow{margin-left:auto;color:#71919b}.ssm-hint{padding:18px 22px;font-size:11px;color:#647780;border-top:1px solid #e1e7e4}.ssm-empty,.ssm-pending{padding:16px 22px;font-size:13px;line-height:1.6}.ssm-pending{border-top:1px solid #d9e0df}.ssm-pending a{color:#236583}.ssm-map-wrap{position:relative;min-width:0;min-height:0}.ssm-map{position:absolute;inset:0;background:#dfe8e7;z-index:0}.ssm-map .leaflet-tile-pane{filter:saturate(.5)}.ssm-overview{position:absolute;z-index:600;top:20px;right:20px;border:1px solid #cad8d8;border-radius:3px;padding:11px 16px;background:#fffdf9f5;color:#18364b;box-shadow:0 3px 14px #18364b12;font-size:12px!important}.ssm-overview:disabled{opacity:.5;cursor:default}.ssm-marker{background:none;border:0}.ssm-marker>span{display:grid;place-items:center;width:34px;height:34px;background:#236583;color:white;border:2px solid #fffdf9;border-radius:50%;box-shadow:0 3px 12px #18364b40;transition:transform .15s}.ssm-marker svg{width:22px;height:22px}.ssm-marker:hover>span,.ssm-marker.is-selected>span{background:#18364b;transform:scale(1.13);box-shadow:0 0 0 3px #b0803455,0 3px 12px #18364b40}.ssm-cluster{background:#23658320;border:1px solid #23658330;border-radius:50%;padding:5px}.ssm-cluster span{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#18364b;color:white;font-size:13px;font-weight:600}.ssm-tooltip{background:#fffdf9;color:#18364b;border:1px solid #cdd9d9;border-radius:3px;padding:9px 12px;font-size:13px;box-shadow:0 5px 18px #18364b20;white-space:normal;max-width:260px;line-height:1.4}.ssm-popup strong{font-size:16px;line-height:1.4;color:#18364b;display:block}.ssm-popup p{font-size:13px;line-height:1.6;color:#536c7a;margin:10px 0!important}.ssm-popup-links{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px}.ssm-popup a{color:#236583!important;font-size:12px;font-weight:600}.ssm-school-popup .leaflet-popup-content-wrapper{border-radius:5px;background:#fffdf9}.ssm-school-popup .leaflet-popup-content{margin:20px}.ssm-map-error{position:absolute;bottom:34px;left:16px;right:16px;z-index:600;background:#fffdf9;border:1px solid #d9e0df;padding:13px;font-size:12px;line-height:1.5}.ssm-map .leaflet-control-attribution{font-size:10px;background:#fffdf9ed}.ssm-map .leaflet-control-zoom{border:1px solid #cdd9d9;box-shadow:none}.ssm-map .leaflet-control-zoom a{color:#18364b;background:#fffdf9}.ssm-map .leaflet-control-zoom{margin-right:20px;margin-bottom:25px}
+@media(max-width:760px){.stem-schools-map{height:auto;grid-template-columns:1fr}.ssm-map-wrap{grid-row:1;height:440px}.ssm-directory{border-right:0;border-top:1px solid #d9e0df}.ssm-search{padding:22px 20px 12px}.ssm-search label{font-size:21px;margin-bottom:12px}.ssm-results{max-height:300px;flex:auto}.ssm-overview{top:12px;right:12px}.ssm-hint{padding:14px 20px}}
+@media(prefers-reduced-motion:reduce){.ssm-marker>span,.ssm-school{transition:none}}
+</style></head>
+<body><main><header><h1>Schools with STEM aviation</h1><p>Explore the directory. Hover over a school marker for its name, or select a school for its address and directions.</p><p id="status" role="status">Loading preview dependencies...</p><button id="download" type="button" hidden>Download located school data</button></header><div id="root"></div><p style="font-size:13px;line-height:1.6">Preview: 19 published starter entries. The current website may list more schools. Address matches are street-range estimates and need review before publishing.</p></main>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.26.9/babel.min.js"></script>
+<script type="text/babel" data-presets="react">
+const {useEffect,useId,useMemo,useRef,useState}=React;
+const hasCoordinates=s=>typeof s.lat==='number'&&typeof s.lng==='number'&&Number.isFinite(s.lat)&&Number.isFinite(s.lng)&&s.lat>=-90&&s.lat<=90&&s.lng>=-180&&s.lng<=180;
+function safeWebsite(value){try{const u=new URL(value);return ['https:','http:'].includes(u.protocol)?u.href:null;}catch{return null;}}
+function normalizeSchools(input){
+  if(!Array.isArray(input))return [];
+  const seen=new Set();
+  return input.filter(s=>s&&typeof s.name==='string'&&s.name.trim()&&typeof s.address==='string').map(s=>({...s,name:s.name.trim(),address:s.address.trim(),id:String(s.id||`${s.name}|${s.address}`)})).filter(s=>{if(seen.has(s.id))return false;seen.add(s.id);return true;});
+}
+function filterSchools(schools,query){const q=String(query||'').trim().toLocaleLowerCase();return schools.filter(s=>[s.name,s.city,s.address,s.zip].filter(Boolean).join(' ').toLocaleLowerCase().includes(q));}
+
+function acceptMatch(school,matches){
+  if(!Array.isArray(matches)||matches.length!==1)return null;
+  const m=matches[0],c=m.addressComponents||{};
+  const zip=(school.address.match(/\b\d{5}(?:-\d{4})?\s*$/)||[])[0]?.slice(0,5);
+  const number=(school.geocodeAddress||school.address).match(/^\s*([\d-]+)/)?.[1];
+  if(!zip||String(c.zip)!==zip||c.state!=='CA'||!number||!m.matchedAddress?.startsWith(number+' '))return null;
+  const point={lat:m.coordinates?.y,lng:m.coordinates?.x};
+  return hasCoordinates(point)?{...point,matchedAddress:m.matchedAddress,geocodeProvider:'US Census',geocodeStatus:'matched'}:null;
+}
+
+
+
+/** Pass the complete existing page dataset, enriched with verified lat/lng values. */
+function SchoolsMap({schools = [], className = ''}) {
+  const records=useMemo(()=>normalizeSchools(schools),[schools]);
+  const [query,setQuery]=useState('');
+  const [active,setActive]=useState(null);
+  const [mapError,setMapError]=useState(false);
+  const searchId=useId(),canvas=useRef(null),instance=useRef(null),buttons=useRef(new Map());
+  const visible=useMemo(()=>filterSchools(records,query),[records,query]);
+  const visibleRef=useRef(visible);visibleRef.current=visible;
+  const activeRef=useRef(active);activeRef.current=active;
+  const selected=records.find(s=>s.id===active);
+  const mapped=visible.filter(hasCoordinates);
+  const motion=()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  useEffect(()=>{
+    const map=L.map(canvas.current,{scrollWheelZoom:false,zoomControl:false,minZoom:2,maxZoom:19,worldCopyJump:true});
+    map.attributionControl.setPrefix(false);
+    L.control.zoom({position:'bottomright'}).addTo(map);
+    let good=0,bad=0;
+    const tiles=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom:19,referrerPolicy:'strict-origin-when-cross-origin',updateWhenIdle:true
+    });
+    tiles.on('loading',()=>{good=0;bad=0;});
+    tiles.on('tileload',()=>{good++;setMapError(false);});
+    tiles.on('tileerror',()=>{bad++;if(bad>=3&&!good)setMapError(true);});
+    tiles.on('load',()=>setMapError(bad>0&&good===0));
+    tiles.addTo(map);
+    const cluster=L.markerClusterGroup({showCoverageOnHover:false,maxClusterRadius:42,spiderfyOnMaxZoom:true,animate:!motion(),
+      iconCreateFunction:group=>L.divIcon({html:`<span>${group.getChildCount()}</span>`,className:'ssm-cluster',iconSize:[44,44]})
+    });
+    map.addLayer(cluster);
+    instance.current={map,cluster,markers:new Map()};
+    map.setView([36.5,-119.5],6);
+    let resizeFrame;
+    const observer=new ResizeObserver(()=>{cancelAnimationFrame(resizeFrame);resizeFrame=requestAnimationFrame(()=>map.invalidateSize({pan:false}));});
+    observer.observe(canvas.current);
+    return()=>{observer.disconnect();cancelAnimationFrame(resizeFrame);instance.current=null;map.remove();};
+  },[]);
+
+  useEffect(()=>{
+    const api=instance.current;if(!api)return;
+    const {map,cluster,markers}=api;cluster.clearLayers();markers.clear();
+    visible.filter(hasCoordinates).forEach(s=>{
+      const marker=L.marker([s.lat,s.lng],{title:s.name,alt:s.name,keyboard:true,riseOnHover:true,icon:L.divIcon({className:'ssm-marker',iconSize:[34,34],iconAnchor:[17,17],html:'<span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 8 9-5 9 5-9 5-9-5Zm4 3v6c3 3 7 3 10 0v-6M21 8v8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>'})});
+      const tip=document.createElement('span');tip.textContent=s.name;
+      marker.bindTooltip(tip,{direction:'top',offset:[0,-17],className:'ssm-tooltip',opacity:1});
+      const popup=document.createElement('div');popup.className='ssm-popup';
+      const title=document.createElement('strong');title.textContent=s.name;popup.append(title);
+      const address=document.createElement('p');address.textContent=s.address;popup.append(address);
+      const links=document.createElement('div');links.className='ssm-popup-links';
+      const directions=document.createElement('a');directions.textContent='Directions ↗';directions.href=`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(s.address)}`;directions.target='_blank';directions.rel='noopener noreferrer';links.append(directions);
+      const url=safeWebsite(s.website);if(url){const site=document.createElement('a');site.textContent='School website ↗';site.href=url;site.target='_blank';site.rel='noopener noreferrer';links.append(site);}
+      popup.append(links);marker.bindPopup(popup,{maxWidth:300,autoPanPadding:[28,70],className:'ssm-school-popup'});
+      marker.on('click',()=>{setActive(s.id);buttons.current.get(s.id)?.scrollIntoView({block:'nearest',behavior:motion()?'instant':'smooth'});});
+      marker.on('add',()=>{const el=marker.getElement();if(!el)return;el.setAttribute('role','button');el.setAttribute('aria-label',`View ${s.name}`);el.setAttribute('aria-pressed',String(s.id===activeRef.current));el.onfocus=()=>marker.openTooltip();el.onblur=()=>marker.closeTooltip();el.onkeydown=e=>{if(e.key===' '){e.preventDefault();marker.fire('click');marker.openPopup();}};});
+      markers.set(s.id,marker);cluster.addLayer(marker);
+    });
+    const coords=visible.filter(hasCoordinates).map(s=>[s.lat,s.lng]);
+    if(coords.length)map.fitBounds(coords,{padding:[50,60],maxZoom:coords.length===1?14:11,animate:false});
+    else map.setView([36.5,-119.5],6,{animate:false});
+    if(active&&!visible.some(s=>s.id===active))setActive(null);
+  },[visible]);
+
+  useEffect(()=>{
+    instance.current?.markers.forEach((m,id)=>{m.getElement()?.classList.toggle('is-selected',id===active);m.getElement()?.setAttribute('aria-pressed',String(id===active));});
+  },[active]);
+
+  function choose(s){
+    activeRef.current=s.id;setActive(s.id);const api=instance.current,marker=api?.markers.get(s.id);if(!marker)return;
+    const chosen=s.id;
+    api.cluster.zoomToShowLayer(marker,()=>{if(instance.current===api&&activeRef.current===chosen&&visibleRef.current.some(item=>item.id===chosen)){marker.openPopup();marker.openTooltip();}});
+  }
+  function highlight(s,on){const marker=instance.current?.markers.get(s.id);if(marker&&instance.current.cluster.hasLayer(marker)){if(on)marker.openTooltip();else marker.closeTooltip();}}
+  function reset(){const api=instance.current;if(!api)return;const coords=visible.filter(hasCoordinates).map(s=>[s.lat,s.lng]);if(coords.length)api.map.fitBounds(coords,{padding:[50,60],maxZoom:coords.length===1?14:11,animate:!motion()});}
+
+  return <section className={`stem-schools-map ${className}`} aria-label="Schools with STEM aviation">
+    <aside className="ssm-directory">
+      <div className="ssm-search"><label htmlFor={searchId}>Find a school</label><div className="ssm-search-input"><input id={searchId} type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="School, city, or ZIP code" autoComplete="off"/>{query&&<button type="button" onClick={()=>setQuery('')} aria-label="Clear search">×</button>}</div><p aria-live="polite">{visible.length} {visible.length===1?'entry':'entries'}{mapped.length!==visible.length?` · ${mapped.length} mapped`:''}</p></div>
+      <ul className="ssm-results" aria-label="School directory">{visible.map(s=><li key={s.id}><button ref={node=>{if(node)buttons.current.set(s.id,node);else buttons.current.delete(s.id);}} type="button" className="ssm-school" aria-pressed={active===s.id} onClick={()=>choose(s)} onMouseEnter={()=>highlight(s,true)} onMouseLeave={()=>highlight(s,false)} onFocus={()=>highlight(s,true)} onBlur={()=>highlight(s,false)}><span className="ssm-school-dot"/><span><strong>{s.name}</strong><span>{s.city||s.address}</span>{!hasCoordinates(s)&&<small>Map location pending</small>}</span><span aria-hidden="true" className="ssm-school-arrow">+<//span></button></li>)}</ul>
+      {!visible.length&&<p className="ssm-empty">No schools match your search.</p>}
+      {selected&&!hasCoordinates(selected)&&<div className="ssm-pending" aria-live="polite"><strong>{selected.name}</strong><p>{selected.address}</p><a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selected.name+' '+selected.address)}`} target="_blank" rel="noopener noreferrer">Find on Google Maps</a></div>}
+      <div className="ssm-hint">Hover for a name. Select for details.</div>
+    </aside>
+    <div className="ssm-map-wrap"><div ref={canvas} className="ssm-map" aria-label="Interactive school locations map"/><button type="button" className="ssm-overview" onClick={reset} disabled={!mapped.length}>Show matching schools</button>
+      {mapError&&<div className="ssm-map-error" role="status">The map could not load. You can still browse the school directory. Check your connection or open the hosted site.</div>}
+      {!mapped.length&&visible.length>0&&<div className="ssm-map-error" role="status">School addresses are listed. Map locations are awaiting verification.</div>}
+    </div>
+  </section>;
+}
+
+const initialSchools=[
+  {
+    "id": "big-bear-high-school",
+    "name": "Big Bear High School",
+    "address": "351 Maple Ln, Big Bear Lake, CA 92315",
+    "city": "Big Bear Lake",
+    "website": "https://bbhs.bearvalleyusd.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "stem3-academy",
+    "name": "STEM3 Academy",
+    "address": "6455 Coldwater Canyon Ave, Valley Glen, CA 91606",
+    "city": "Valley Glen",
+    "website": "https://www.stem3academy.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "career-education-center",
+    "name": "Career Education Center",
+    "address": "465 Horizon Cir, Camarillo, CA 93010",
+    "city": "Camarillo",
+    "website": "https://www.vcoe.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "a-b-miller-high-school",
+    "name": "A.B. Miller High School",
+    "address": "6821 Oleander Ave, Fontana, CA 92336",
+    "city": "Fontana",
+    "website": "https://www.fusd.net",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "school-of-extended-educational-options",
+    "name": "School of Extended Educational Options",
+    "address": "1444 E Holt Ave, Pomona, CA 91767",
+    "city": "Pomona",
+    "website": "https://seeo.pusd.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "flabob-airport-preparatory-academy",
+    "name": "Flabob Airport Preparatory Academy",
+    "address": "5580 42nd St, Riverside, CA 92509",
+    "city": "Riverside",
+    "website": "https://springscs.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "corona-norco-unified-district",
+    "name": "Corona-Norco Unified District",
+    "address": "2820 Clark Ave, Norco, CA 92860",
+    "city": "Norco",
+    "website": "https://www.cnusd.k12.ca.us",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "north-high-school",
+    "name": "North High School",
+    "address": "3620 W 182nd St, Torrance, CA 90504",
+    "city": "Torrance",
+    "website": "https://www.tusd.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "canyon-high-school",
+    "name": "Canyon High School",
+    "address": "220 S Imperial Hwy, Anaheim, CA 92807",
+    "city": "Anaheim",
+    "website": "https://www.canyonhighschool.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "san-jacinto-valley-academy",
+    "name": "San Jacinto Valley Academy",
+    "address": "480 N San Jacinto Ave, San Jacinto, CA 92583",
+    "city": "San Jacinto",
+    "website": "https://www.sjva.net",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "shadow-hills-high-school",
+    "name": "Shadow Hills High School",
+    "address": "39-225 Jefferson St, Indio, CA 92203",
+    "city": "Indio",
+    "website": "https://www.cde.ca.gov",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "irvine-high-school",
+    "name": "Irvine High School",
+    "address": "4321 Walnut Ave, Irvine, CA 92604",
+    "city": "Irvine",
+    "website": "https://www.irvinehigh.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "desert-mirage-high-school",
+    "name": "Desert Mirage High School",
+    "address": "86150 66th Ave, Thermal, CA 92274",
+    "city": "Thermal",
+    "website": "https://dmhs.cvusd.us",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "army-and-navy-academy",
+    "name": "Army and Navy Academy",
+    "address": "2605 Carlsbad Blvd, Carlsbad, CA 92008",
+    "city": "Carlsbad",
+    "website": "https://www.armyandnavyacademy.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "high-tech-high-north-county",
+    "name": "High Tech High North County",
+    "address": "1420 W San Marcos Blvd, San Marcos, CA 92078",
+    "city": "San Marcos",
+    "website": "https://www.hightechhigh.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "foothills-christian-high-school",
+    "name": "Foothills Christian High School",
+    "address": "2321 Dryden Rd, El Cajon, CA 92020",
+    "city": "El Cajon",
+    "website": "https://www.foothillsschool.net",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "rock-academy",
+    "name": "Rock Academy",
+    "address": "2277 Rosecrans St, San Diego, CA 92106",
+    "city": "San Diego",
+    "website": "https://www.therockacademy.org",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  },
+  {
+    "id": "e3-civic-high",
+    "name": "e3 Civic High",
+    "address": "395 Eleventh Ave 6th floor, San Diego, CA 92101",
+    "city": "San Diego",
+    "website": "https://www.e3civichigh.com",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/",
+    "geocodeAddress": "395 Eleventh Ave, San Diego, CA 92101"
+  },
+  {
+    "id": "calvary-christian-academy",
+    "name": "Calvary Christian Academy",
+    "address": "1771 E Palomar St, Chula Vista, CA 91913",
+    "city": "Chula Vista",
+    "website": "https://www.ccaknights.com",
+    "source": "https://stemaviation.org/resources/schools-with-stem-aviation/"
+  }
+]
+;
+function lookup(school,index){return new Promise((resolve,reject)=>{
+  const callback='stemGeocode'+index,script=document.createElement('script');
+  const cleanup=()=>{clearTimeout(timer);script.remove();window[callback]=()=>{};};
+  const timer=setTimeout(()=>{cleanup();reject(new Error('Timed out'));},12000);
+  window[callback]=data=>{cleanup();resolve(acceptMatch(school,data.result?.addressMatches));};
+  script.onerror=()=>{cleanup();reject(new Error('Service unavailable'));};
+  const params=new URLSearchParams({address:school.geocodeAddress||school.address,benchmark:'Public_AR_Current',format:'jsonp',callback});
+  script.src='https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?'+params;
+  document.head.appendChild(script);
+});}
+function Preview(){
+ const [schools,setSchools]=useState(initialSchools);
+ useEffect(()=>{let cancelled=false;
+  (async()=>{
+   let cache=[];try{cache=JSON.parse(localStorage.getItem('stem-schools-preview-v1')||'[]');}catch{}
+   const located=[];let consecutiveFailures=0;
+   for(let i=0;i<initialSchools.length;i++){
+    if(cancelled)return;
+    const school=initialSchools[i];
+    document.getElementById('status').textContent='Locating school '+(i+1)+' of '+initialSchools.length+': '+school.name;
+    const saved=cache.find(s=>s.id===school.id&&s.address===school.address&&hasCoordinates(s));
+    let match=saved||null;
+    if(!match&&consecutiveFailures<3){try{match=await lookup(school,i);consecutiveFailures=0;}catch{consecutiveFailures++;}}
+    if(cancelled)return;
+    located.push({...school,...(match||{})});
+   }
+   setSchools(located);
+   const count=located.filter(hasCoordinates).length;
+   document.getElementById('status').textContent=count+' of '+located.length+' schools located.'+(count<located.length?' Unmatched schools remain in the directory.':' Hover over the pins or choose a school.');
+   try{localStorage.setItem('stem-schools-preview-v1',JSON.stringify(located));}catch{}
+   const download=document.getElementById('download');download.hidden=count===0;
+   download.onclick=()=>{const blob=new Blob([JSON.stringify(located,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='schools.geocoded.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+  })();return()=>{cancelled=true;};
+ },[]);
+ return <SchoolsMap schools={schools}/>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Preview/>);
+</script></body></html>
